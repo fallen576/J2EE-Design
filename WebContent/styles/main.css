@@ -1,5 +1,10 @@
 body {
-	background-color : #FFFFFF;
+	/*background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat center center fixed;*/
+	/*background: url("back1.jpg") no-repeat center center fixed;*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
 } 
 .padding-left {
 	padding-left : 5%;
@@ -31,4 +36,10 @@ body {
 }  
 .padding {
 	padding : 10px;
+} 
+.banner {
+	height: auto;
+	display: block;
+    text-align: center;
+    width: 100%; 
 }
