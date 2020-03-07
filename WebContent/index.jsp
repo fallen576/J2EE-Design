@@ -11,8 +11,8 @@
     <title>Deals On Wheels</title>
 </head>
 
-<body class="bg-light"> 
-	<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+<body>
+	<nav class="navbar navbar-expand-sm bg-light navbar-dark">
 		<div class="navbar-collapse collapse w-100 order-3 order-md-0 dual-collapse2">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
@@ -36,16 +36,16 @@
 			 		 </form>
 		 		 </li>
 	 		 </ul>
- 		 </div>
+ 		 </div> 
 	</nav> 
-	<div class="container padding"> 
-		<div class="row border border-secondary rounded">
+	<div class="container padding">  
+		<h1 class="text-center color">Our Wheels</h1>
+		<div class="row border-secondary rounded bg-light">
 		<div class="container snipets">
-		   <h1 class="text-center color">Our Wheels</h1> 
 		   <div class="row flow-offset-1">
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6> 
 		             <span>
 		             	<form method="POST">  
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -56,7 +56,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4"> 
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -67,7 +67,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -78,7 +78,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -89,7 +89,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -100,7 +100,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -111,7 +111,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -122,7 +122,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
@@ -133,7 +133,7 @@
 		     </div>
 		     <div class="col-xs-6 col-md-4">
 		       <div class="product tumbnail thumbnail-3"><a href="#"><img src="/J2EE-Design/images/car0.jpeg" alt=""></a>
-		           <h6><a href="#">Small Boi</a></h6>
+		           <h6><a class="text-secondary" href="#">Small Boi</a></h6>
 		             <span>
 		             	<form method="POST">
 		             		<input type="hidden" name="carToSelect" value="car0>">
