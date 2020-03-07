@@ -28,4 +28,7 @@ body {
 .color {
 	color : black;
 	padding : 8px;
+}  
+.padding {
+	padding : 10px;
 }
