@@ -39,7 +39,17 @@
  		 </div> 
 	</nav> 
 	<div class="container padding">  
-		<h1 class="text-center color padding">Our Wheels</h1>
+		<!-- <h1 class="text-center color padding">Our Wheels</h1>-->
+		
+		<div class="jumbotron" id="closeMe">
+			<h1 class="display-4">Check out our wheels</h1>
+			<p class="lead">Below you will find all of our available cars. We have the right rental car for everyone!</o>
+			<hr class="my-4">
+			<p class="lead">Feel free to check out our frequently asked questions over at our Contact Us page.</p>
+			<p class="lead">
+				<a class="btn btn-primary bg-dark rounded btn-lg" href="" role="button">Learn more</a>
+			</p>
+		</div>
 		<div class="row border-secondary rounded bg-light">
 		<div class="container">
 		   <div class="row">
