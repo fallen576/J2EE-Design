@@ -16,13 +16,13 @@
 		<div class="navbar-collapse collapse w-100 order-3 order-md-0 dual-collapse2">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light bg-dark rounded" href="">Home</a>
+					<a class="nav-link text-dark  rounded" href="">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light bg-success rounded" href="">Reviews</a>
+					<a class="nav-link text-dark  rounded" href="">Reviews</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light bg-dark rounded" href="">Contact Us</a> 
+					<a class="nav-link text-dark  rounded" href="">Profile</a> 
 				</li>
 			</ul> 
 		</div>
@@ -41,15 +41,67 @@
 	<div class="container padding">  
 		<!-- <h1 class="text-center color padding">Our Wheels</h1>-->
 		
-		<div class="jumbotron" id="closeMe">
-			<h1 class="display-4">Check out our wheels</h1>
-			<p class="lead">Below you will find all of our available cars. We have the right rental car for everyone!</o>
+		<div class="jumbotron" id="closeMe"> 
+			<h1 class="display-4">Welcome to Deals on Wheels</h1>
+			<p class="lead">Let us know a little about your trip</p>
 			<hr class="my-4">
-			<p class="lead">Feel free to check out our frequently asked questions over at our Contact Us page.</p>
+			<form action="" method="POST">
+				<div class="container">
+					<h5>Contact Information</h5>
+			    	<div class="input-group">
+						<div class="input-group-prepend">
+					    	<span class="input-group-text" id="">First and last name</span>
+						</div>
+					  	<input type="text" class="form-control" required>
+					  	<input type="text" class="form-control" required>
+					</div>
+					<div class="form-group padT">
+					    <label for="locations"><h5>Locations</h5></label>
+					    <select class="form-control" id="locations" required>
+					      <option>Maryland</option>
+					      <option>Virginia</option>
+					      <option>West Virginia</option>
+					      <option>Pennsylvania</option>
+					      <option>Delaware</option>
+					    </select>
+					</div>
+					<div class="form-group padT">
+						<label for="dateTime"><h5>When would you like to pick up your car?</h5></label>
+					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:00" id="dateTime">
+					</div>
+					<div class="form-group padT">
+						<label for="dateTime"><h5>When would you like to return your car?</h5></label>
+					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:00" id="dateTime">
+					</div>
+					<div class="form-group padT">
+					    <label for="numDrivers"><h5>How many people will be driving?</h5></label>
+					    <select class="form-control" id="numDrivers" required>
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3+</option>
+					    </select>
+					</div>
+					<div class="form-group padT">
+					    <label for="numDrivers"><h5>What type of car would you like?</h5></label>
+					    <select class="form-control" id="numDrivers" required>
+					      <option>Compact</option>
+					      <option>SUV</option>
+					      <option>Sedan</option>
+					      <option>Luxury</option>
+					      <option>Sports</option>
+					    </select>
+					</div>
+					<div class="button padT">
+		    			<button class="btn btn-success btn-lg rounded">Find Cars</button>
+		    		</div>
+				</div>
+			</form>
+			<p class="lead padT">Feel free to check out our frequently asked questions over at our Contact Us page.</p>
 			<p class="lead">
-				<a class="btn btn-primary bg-dark rounded btn-lg" href="" role="button">Learn more</a>
+				<a class="btn btn-warning rounded btn-med" href="" role="button">Learn more</a>
 			</p>
 		</div>
+		<!--
 		<div class="row border-secondary rounded bg-light">
 		<div class="container">
 		   <div class="row">
@@ -166,6 +218,7 @@
 		   </div>
 		 </div>
 		 </div>
+		 -->
 	</div>
 </body>
 
