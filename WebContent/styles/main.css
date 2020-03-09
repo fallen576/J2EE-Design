@@ -43,3 +43,6 @@ body {
     text-align: center;
     width: 100%; 
 }    
+.padT {
+	padding-top : 30px;
+}
