@@ -47,6 +47,7 @@
 			<hr class="my-4">
 			<form action="" method="POST">
 				<div class="container">
+				<!-- 
 					<h5>Contact Information</h5>
 			    	<div class="input-group">
 						<div class="input-group-prepend">
@@ -55,6 +56,7 @@
 					  	<input type="text" class="form-control" required>
 					  	<input type="text" class="form-control" required>
 					</div>
+					 -->
 					<div class="form-group padT">
 					    <label for="locations"><h5>Locations</h5></label>
 					    <select class="form-control" id="locations" required>
