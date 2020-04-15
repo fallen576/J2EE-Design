@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ServletUtils {
 
 	public static Connection connectToSqlDatabase() {
-		String dbUrl = "";
-		String username = "";
-		String password = "";
+		String dbUrl = "jdbc:mysql://sql9.freemysqlhosting.net:3306/sql9333722";
+		String username = "sql9333722";
+		String password = "QF3TzjpwN2";
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
