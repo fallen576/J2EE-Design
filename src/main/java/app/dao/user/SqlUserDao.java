@@ -18,11 +18,12 @@ public class SqlUserDao implements UserDao {
 
 	@Override
 	public long insert(User user) {
-		String sql = "INSERT INTO user (name, email_address) VALUES (?, ?)";
+		String sql = "INSERT INTO user (first_name, last_name, email_address) VALUES (?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, user.getName());
-			statement.setString(2, user.getEmailAddress());
+			statement.setString(1, user.getFirstName());
+			statement.setString(2, user.getLastName());
+			statement.setString(3, user.getEmailAddress());
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			rs.next();
@@ -35,12 +36,13 @@ public class SqlUserDao implements UserDao {
 	
 	@Override
 	public void update(User user) {
-		String sql = "UPDATE user SET name = ?, email_address = ? WHERE id = ?";
+		String sql = "UPDATE user SET first_name = ?, last_name = ?, email_address = ? WHERE id = ?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			statement.setString(1, user.getName());
-			statement.setString(2, user.getEmailAddress());
-			statement.setLong(3, user.getId());
+			statement.setString(1, user.getFirstName());
+			statement.setString(2, user.getLastName());
+			statement.setString(3, user.getEmailAddress());
+			statement.setLong(4, user.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

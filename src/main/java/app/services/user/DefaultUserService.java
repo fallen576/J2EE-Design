@@ -12,8 +12,8 @@ public class DefaultUserService implements UserService {
 	}
 
 	@Override
-	public User insert(String name, String emailAddress) {
-		User user = new User(name, emailAddress);
+	public User insert(String firstName, String lastName, String billingAddress, String emailAddress) {
+		User user = new User(firstName, lastName, billingAddress, emailAddress);
 		user.setId(userDao.insert(user));
 		return user;
 	}
