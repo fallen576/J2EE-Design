@@ -3,7 +3,7 @@ package app.model;
 public class Vehicle {
 	
 	private long id;
-	private VehicleType type;
+	private VehicleCategory type;
 	private String make;
 	private String model;
 	private String color;
@@ -19,11 +19,11 @@ public class Vehicle {
 		this.id = id;
 	}
 
-	public VehicleType getType() {
+	public VehicleCategory getType() {
 		return type;
 	}
 
-	public void setType(VehicleType type) {
+	public void setType(VehicleCategory type) {
 		this.type = type;
 	}
 

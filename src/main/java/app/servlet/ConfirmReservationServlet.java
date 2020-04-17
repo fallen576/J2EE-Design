@@ -20,7 +20,7 @@ import app.dao.vehicle.SqlVehicleDao;
 import app.dao.vehicle.VehicleDao;
 import app.model.Reservation;
 import app.model.User;
-import app.model.VehicleType;
+import app.model.VehicleCategory;
 import app.services.reservation.DefaultReservationService;
 import app.services.reservation.ReservationService;
 import app.utils.ServletUtils;
@@ -55,22 +55,22 @@ public class ConfirmReservationServlet extends HttpServlet {
 			String dropoffLocation = (String) request.getAttribute("dropoffLocation");
 			String pickupDateString = (String) request.getAttribute("pickup_date");
 			String dropoffDateString = (String) request.getAttribute("dropoff_date");
-			String vehicleTypeString = (String) request.getAttribute("vehicleType");
+			String vehicleCategoryString = (String) request.getAttribute("category");
 			
-			VehicleType vehicleType;
+			VehicleCategory vehicleCategory;
 			Date pickupDate;
 			Date dropoffDate;
 			try {
 				pickupDate = DATE_TIME_FORMATTER.parse(pickupDateString);
 				dropoffDate = DATE_TIME_FORMATTER.parse(dropoffDateString);
-				vehicleType = VehicleType.valueOf(vehicleTypeString);
+				vehicleCategory = VehicleCategory.valueOf(vehicleCategoryString);
 			} catch (Exception e) {
 				throw new RuntimeException("Unable to parse pickup date, dropoff date, and/or vehicle type");
 			}
 			
 			Reservation reservation = new Reservation(pickupLocation, dropoffLocation, pickupDate, dropoffDate);
 			User user = (User) userObject;
-			reservationService.confirmReservation(user, reservation, vehicleType);			
+			reservationService.confirmReservation(user, reservation, vehicleCategory);			
 		}
 		response.sendRedirect(request.getContextPath() + "/index.jsp");
 	}

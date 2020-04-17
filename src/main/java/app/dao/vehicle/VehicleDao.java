@@ -3,10 +3,10 @@ package app.dao.vehicle;
 import java.util.List;
 
 import app.model.Vehicle;
-import app.model.VehicleType;
+import app.model.VehicleCategory;
 
 public interface VehicleDao {
 
-	List<Vehicle> findByType(VehicleType type);
+	List<Vehicle> findByType(VehicleCategory type);
 
 }

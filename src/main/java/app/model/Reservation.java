@@ -11,9 +11,11 @@ public class Reservation {
 	private String dropoffLocation;
 	private Date pickupDate;
 	private Date dropoffDate;
-	
-	public Reservation() {}
-	
+	private boolean paid;
+
+	public Reservation() {
+	}
+
 	public Reservation(String pickupLocation, String dropoffLocation, Date pickupDate, Date dropoffDate) {
 		this.pickupLocation = pickupLocation;
 		this.dropoffLocation = dropoffLocation;
@@ -32,7 +34,7 @@ public class Reservation {
 	public String getConfirmationNumber() {
 		return confirmationNumber;
 	}
-	
+
 	public void setConfirmationNumber(String confirmationNumber) {
 		this.confirmationNumber = confirmationNumber;
 	}
@@ -75,6 +77,14 @@ public class Reservation {
 
 	public void setDropoffDate(Date dropoffDate) {
 		this.dropoffDate = dropoffDate;
+	}
+
+	public boolean hasPaid() {
+		return paid;
+	}
+
+	public void setPaid(boolean paid) {
+		this.paid = paid;
 	}
 
 }

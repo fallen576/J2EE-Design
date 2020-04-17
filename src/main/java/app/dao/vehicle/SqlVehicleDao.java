@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.model.Vehicle;
-import app.model.VehicleType;
+import app.model.VehicleCategory;
 
 public class SqlVehicleDao implements VehicleDao {
 	
@@ -19,8 +19,8 @@ public class SqlVehicleDao implements VehicleDao {
 	}
 
 	@Override
-	public List<Vehicle> findByType(VehicleType type) {
-		String sql = "SELECT * FROM vehicle WHERE vehicle_type = ?";
+	public List<Vehicle> findByType(VehicleCategory type) {
+		String sql = "SELECT * FROM vehicle WHERE category = ?";
 		List<Vehicle> vehicles = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class SqlVehicleDao implements VehicleDao {
 		vehicle.setColor(rs.getString("color"));
 		vehicle.setMake(rs.getString("make"));
 		vehicle.setModel(rs.getString("model"));
-		vehicle.setType(VehicleType.valueOf(rs.getString("type")));
+		vehicle.setType(VehicleCategory.valueOf(rs.getString("category")));
 		return vehicle;
 	}
 

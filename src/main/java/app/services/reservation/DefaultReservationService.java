@@ -9,7 +9,7 @@ import app.dao.vehicle.VehicleDao;
 import app.model.Reservation;
 import app.model.User;
 import app.model.Vehicle;
-import app.model.VehicleType;
+import app.model.VehicleCategory;
 import app.services.email.DefaultEmailService;
 import app.services.email.EmailService;
 import app.utils.ConfirmationNumberGenerator;
@@ -28,7 +28,8 @@ public class DefaultReservationService implements ReservationService {
 		this.emailService = new DefaultEmailService();
 	}
 	
-	public void confirmReservation(User user, Reservation reservation, VehicleType vehicleType) {
+	@Override
+	public void confirmReservation(User user, Reservation reservation, VehicleCategory category) {
 		if (!reservation.getDropoffDate().after(reservation.getPickupDate())) {
 			throw new RuntimeException("Cannot have the pickup date after the dropoff date");
 		}
@@ -38,9 +39,9 @@ public class DefaultReservationService implements ReservationService {
 			throw new RuntimeException("User has a reservation in the requested date range");
 		}
 		
-		Vehicle availableVehicle = this.findAvailableVehicle(reservation, vehicleType);
+		Vehicle availableVehicle = this.findAvailableVehicle(reservation, category);
 		if (availableVehicle == null) {
-			throw new RuntimeException("No " + vehicleType.name() + " vehicles available during the reservation period");
+			throw new RuntimeException("No " + category.name() + " vehicles available during the reservation period");
 		}
 		
 		String confirmationNumber = ConfirmationNumberGenerator.generate();
@@ -56,7 +57,7 @@ public class DefaultReservationService implements ReservationService {
 		emailService.send(user, reservation);
 	}
 	
-	private Vehicle findAvailableVehicle(Reservation reservation, VehicleType vehicleType) {
+	private Vehicle findAvailableVehicle(Reservation reservation, VehicleCategory vehicleType) {
 		List<Vehicle> vehicles = vehicleDao.findByType(vehicleType);
 		List<Long> vehicleIds = vehicles.stream().map(v -> v.getId()).collect(Collectors.toList());
 		List<Reservation> conflictingVehicleReservations = reservationDao.findByVehicleIds(vehicleIds).stream()

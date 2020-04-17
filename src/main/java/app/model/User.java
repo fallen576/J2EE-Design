@@ -5,18 +5,20 @@ public class User {
 	private long id;
 	private String firstName;
 	private String lastName;
-	private String billingAddress;
+	private String password;
 	private String emailAddress;
-	private PaymentInfo paymentInfo;
+	private boolean admin;
+	private BillingInfo billingInfo;
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String billingAddress, String emailAddress) {
+	public User(String firstName, String lastName, String password, String emailAddress) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.billingAddress = billingAddress;
+		this.password = password;
 		this.emailAddress = emailAddress;
+		this.admin = false;
 	}
 
 	public long getId() {
@@ -42,21 +44,13 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
-	public String getBillingAddress() {
-		return billingAddress;
+	
+	public String getPassword() {
+		return this.password;
 	}
-
-	public void setBillingAddress(String billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
-	public PaymentInfo getPaymentInfo() {
-		return paymentInfo;
-	}
-
-	public void setPaymentInfo(PaymentInfo paymentInfo) {
-		this.paymentInfo = paymentInfo;
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmailAddress() {
@@ -65,6 +59,22 @@ public class User {
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+	
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public BillingInfo getBillingInfo() {
+		return billingInfo;
+	}
+
+	public void setBillingInfo(BillingInfo billingInfo) {
+		this.billingInfo = billingInfo;
 	}
 
 }

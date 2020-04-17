@@ -18,12 +18,14 @@ public class SqlUserDao implements UserDao {
 
 	@Override
 	public long insert(User user) {
-		String sql = "INSERT INTO user (first_name, last_name, email_address) VALUES (?, ?)";
+		String sql = "INSERT INTO user (first_name, last_name, password, email_address, is_admin) VALUES (?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, user.getFirstName());
 			statement.setString(2, user.getLastName());
-			statement.setString(3, user.getEmailAddress());
+			statement.setString(3, user.getPassword());
+			statement.setString(4, user.getEmailAddress());
+			statement.setBoolean(5, user.isAdmin());
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			rs.next();

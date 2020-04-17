@@ -1,6 +1,6 @@
 package app.model;
 
-public enum VehicleType {
+public enum VehicleCategory {
 
 	ECONOMY,
 	COMPACT,
