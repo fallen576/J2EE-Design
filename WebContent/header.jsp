@@ -16,12 +16,12 @@
 		<div class="navbar-collapse collapse w-100 order-3 order-md-0 dual-collapse2">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item">
-					<a class="nav-link text-dark  rounded" href="">Home</a>
+					<a class="nav-link text-dark  rounded" href="/J2EE-Design/index.jsp">Home</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-dark  rounded" href="">Reviews</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item"> 
 					<a class="nav-link text-dark  rounded" href="">Profile</a> 
 				</li>
 			</ul> 

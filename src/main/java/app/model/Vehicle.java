@@ -3,10 +3,11 @@ package app.model;
 public class Vehicle {
 	
 	private long id;
-	private VehicleCategory type;
+	private String type;
 	private String make;
 	private String model;
 	private String color;
+	private String img;
 	
 	public Vehicle() {
 	}
@@ -19,11 +20,11 @@ public class Vehicle {
 		this.id = id;
 	}
 
-	public VehicleCategory getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(VehicleCategory type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -50,5 +51,12 @@ public class Vehicle {
 	public void setColor(String color) {
 		this.color = color;
 	}
-
+	
+	public String getImg() {
+		return this.img;
+	}
+	
+	public void setImg(String img) {
+		this.img = img;
+	}
 }

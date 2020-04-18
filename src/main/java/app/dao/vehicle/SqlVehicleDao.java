@@ -34,14 +34,33 @@ public class SqlVehicleDao implements VehicleDao {
 		}
 		return vehicles;
 	}
+	
+	public List<Vehicle> findByTypeDirect(String type) {
+		String sql = "SELECT * FROM vehicle WHERE category = " +  type;
+		List<Vehicle> vehicles = new ArrayList<>();
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			//statement.setString(1, "\'" + type + "\'");
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				vehicles.add(this.mapVehicle(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("UHH OHHHHHHHHHHHHHHHHHH " + sql);
+			e.printStackTrace();
+		}
+		return vehicles;
+	}
 
 	private Vehicle mapVehicle(ResultSet rs) throws SQLException {
 		Vehicle vehicle = new Vehicle();
 		vehicle.setId(rs.getInt("id"));
 		vehicle.setColor(rs.getString("color"));
 		vehicle.setMake(rs.getString("make"));
-		vehicle.setModel(rs.getString("model"));
-		vehicle.setType(VehicleCategory.valueOf(rs.getString("category")));
+		vehicle.setModel(rs.getString("model")); 
+		//vehicle.setType(VehicleCategory.valueOf(rs.getString("category")));
+		vehicle.setType(rs.getString("category"));
+		vehicle.setImg(rs.getString("img_path"));
 		return vehicle;
 	}
 
