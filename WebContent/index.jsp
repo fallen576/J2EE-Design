@@ -47,13 +47,13 @@
 					<div class="form-group padT">
 					    <label for="numDrivers"><h5>What type of car would you like?</h5></label>
 					    <select class="form-control" id="numDrivers" name="carType" required>
-					      <option value="economy">Economy</option>
-					      <option value="compact">Compact</option>
-					      <option value="intermediate">Intermediate</option>
-					      <option value="standard">Standard</option>
-					      <option value="full_size">Full Size</option>
-					      <option value="premium">Premium</option>
-					      <option value="luxury">Luxury</option>
+					      <option value="Economy">Economy</option>
+					      <option value="Compact">Compact</option>
+					      <option value="Intermediate">Intermediate</option>
+					      <option value="Standard">Standard</option>
+					      <option value="Full_size">Full Size</option>
+					      <option value="Premium">Premium</option>
+					      <option value="Luxury">Luxury</option>
 					    </select>
 					</div>
 					<div class="button padT">

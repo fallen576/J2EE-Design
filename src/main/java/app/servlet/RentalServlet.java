@@ -41,7 +41,7 @@ public class RentalServlet extends HttpServlet {
 		
 		//the user is coming from the index page, only car type matters
 		if (request.getParameter("filter").equals("index")) {
-			String carType = request.getParameter("carType");			
+			String carType = request.getParameter("carType");
 			
 			List<Vehicle> vehicles = (List<Vehicle>) new SqlVehicleDao(con).findByTypeDirect( "\'" + carType +  "\'");
 			
@@ -56,13 +56,30 @@ public class RentalServlet extends HttpServlet {
 		//the user is refining their search from /Select.jsp
 		if (request.getParameter("filter").equals("panel")) {
 			String[] types = request.getParameterValues("type");
+			String[] colors = request.getParameterValues("carColor");
 			
-			String query = "\'" + types[0] + "\'";
+			String typeQuery = "\'" + types[0] + "\'";
 			
 			for (int i = 1; i < types.length; i++) {
-				query += " OR category = " + "\'" + types[i] + "\'"; 
+				typeQuery += " OR category = " + "\'" + types[i] + "\'"; 
 			}
-			List<Vehicle> vehicles = (List<Vehicle>) new SqlVehicleDao(con).findByTypeDirect(query);
+			String colorQuery = "";
+			
+			if (colors != null) {
+				colorQuery += " AND color = " + "\'" + colors[0] + "\'";
+				
+				for (int i = 1; i < colors.length; i++) {
+					colorQuery += " OR color = " + "\'" + colors[i] + "\'";  
+				}
+				session.setAttribute("carColor", colors);
+			}
+			else {
+				session.setAttribute("carColor", new String[1]);
+			}
+			
+			String query = typeQuery + colorQuery;
+			
+			List<Vehicle> vehicles = (List<Vehicle>) new SqlVehicleDao(con).findByTypeDirect(typeQuery + colorQuery);
 			session.setAttribute("vehicles", vehicles);
 			session.setAttribute("type", types);
 		}

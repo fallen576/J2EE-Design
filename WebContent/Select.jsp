@@ -4,6 +4,10 @@
 	//get session variables here
 	List<Vehicle> vehicles = (List<Vehicle>) session.getAttribute("vehicles");
 	String[] carType = (String[]) session.getAttribute("type");
+	String[] carColor = (String[]) session.getAttribute("carColor");
+	if (carColor == null) {
+		carColor = new String[1];
+	}
 %>
 <jsp:include page="header.jsp"/>
 	<div class="row border-secondary rounded bg-light">
@@ -11,13 +15,13 @@
 		     <div class="row">
 		     	<div class="col-xs-1">
 		     		<div class="card">
+		     		<form action="Rental" method="Get">
 				<article class="card-group-item">
 					<header class="card-header">
 						<h6>Vehicle Type</h6>
 					</header>
 					<div class="filter-content">
 						<div class="card-body">
-						<form action="Rental" method="Get">
 							<label class="form-check">
 							<% if (carType != null && Arrays.asList(carType).contains("Compact")) {%>
 							  <input class="form-check-input" name="type" type="checkbox" value="Compact" checked>
@@ -67,51 +71,74 @@
 							  <span class="form-check-label">
 							    Sports
 							  </span>
-							</label>  <!-- form-check.// -->
-							<header class="card">
-								<button class="btn btn-success">Search</button>
-								<input type="hidden" name="filter" value="panel"/>
-							</header>
-						</form>
-			
+							</label>  <!-- form-check.// -->			
 						</div> <!-- card-body.// -->
 					</div>
 				</article> <!-- card-group-item.// -->
-				<!-- 
 				<article class="card-group-item">
 					<header class="card-header">
-						<h6>Rental Price</h6>
+						<h6>Vehicle Color</h6>
 					</header>
 					<div class="filter-content">
 						<div class="card-body">
-						<label class="form-check">
-						  <input class="form-check-input" type="radio" name="exampleRadio" value="">
-						  <span class="form-check-label">
-						    Low
-						  </span> 
-						</label>
-						<label class="form-check">
-						  <input class="form-check-input" type="radio" name="exampleRadio" value="">
-						  <span class="form-check-label">
-						    Medium
-						  </span>
-						</label>
-						<label class="form-check">
-						  <input class="form-check-input" type="radio" name="exampleRadio" value="">
-						  <span class="form-check-label">
-						    High
-						  </span> 
-						</label>
-						<label class="form-check">
-						  <input class="form-check-input" type="radio" name="exampleRadio" value="">
-						  <span class="form-check-label">
-						    Price doesn't matter
-						  </span>
-						</label>
-						</div> 
-					</div>
-				</article>
-				 -->
+							<label class="form-check">
+							<% if (carColor != null && Arrays.asList(carColor).contains("Blue")) {%>
+							  <input class="form-check-input" name="carColor" type="checkbox" value="Blue" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="carColor" type="checkbox" value="Blue">
+						    	<%} %>
+							  <span class="form-check-label">
+							   Blue
+							  </span>
+							</label> <!-- form-check.// -->
+							<label class="form-check">
+							  <% if (carColor != null && Arrays.asList(carColor).contains("Silver")) {%>
+							  <input class="form-check-input" name="carColor"  type="checkbox" value="Silver" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="carColor" type="checkbox" value="Silver">
+						    	<%} %>
+							  <span class="form-check-label">
+							    Silver
+							  </span>
+							</label>  <!-- form-check.// -->
+							<label class="form-check">
+							  <% if (carColor != null && Arrays.asList(carColor).contains("Green")) {%>
+							  <input class="form-check-input" name="carColor" type="checkbox" value="Green" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="carColor" type="checkbox" value="Green">
+						    	<%} %>
+							  <span class="form-check-label">
+							    Green
+							  </span>
+							</label>  <!-- form-check.// -->
+							<label class="form-check">
+							  <% if (carColor != null && Arrays.asList(carColor).contains("Red")) {%>
+							  <input class="form-check-input" name="carColor" type="checkbox" value="Red" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="carColor" type="checkbox" value="Red">
+						    	<%} %>
+							  <span class="form-check-label">
+							   Red
+							  </span>
+							</label> <!-- form-check.// -->
+							<label class="form-check">
+							 <% if (carColor != null && Arrays.asList(carColor).contains("Black")) {%>
+							  <input class="form-check-input" name="carColor" type="checkbox" value="Black" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="carColor" type="checkbox" value="Black">
+						    	<%} %>
+							  <span class="form-check-label">
+							    Black
+							  </span>
+							</label>  <!-- form-check.// -->
+				<header class="card">
+								<button class="btn btn-success">Search</button>
+								<input type="hidden" name="filter" value="panel"/>
+							</header>
+							</div>
+							</div>
+							</article>
+				</form>
 			</div> <!-- card.// -->   
 		     	</div>
 		     	<div class="col-lg">
