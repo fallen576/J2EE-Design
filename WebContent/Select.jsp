@@ -33,23 +33,23 @@
 							  </span>
 							</label> <!-- form-check.// -->
 							<label class="form-check">
-							  <% if (carType != null && Arrays.asList(carType).contains("SUV")) {%>
-							  <input class="form-check-input" name="type"  type="checkbox" value="SUV" checked>
+							  <% if (carType != null && Arrays.asList(carType).contains("Economy")) {%>
+							  <input class="form-check-input" name="type"  type="checkbox" value="Economy" checked>
 						    <% } else { %>
-						    	<input class="form-check-input" name="type" type="checkbox" value="SUV">
+						    	<input class="form-check-input" name="type" type="checkbox" value="Economy">
 						    	<%} %>
 							  <span class="form-check-label">
-							    SUV
+							    Economy
 							  </span>
 							</label>  <!-- form-check.// -->
 							<label class="form-check">
-							  <% if (carType != null && Arrays.asList(carType).contains("Sedan")) {%>
-							  <input class="form-check-input" name="type" type="checkbox" value="Sedan" checked>
+							  <% if (carType != null && Arrays.asList(carType).contains("Intermediate")) {%>
+							  <input class="form-check-input" name="type" type="checkbox" value="Intermediate" checked>
 						    <% } else { %>
-						    	<input class="form-check-input" name="type" type="checkbox" value="Sedan">
+						    	<input class="form-check-input" name="type" type="checkbox" value="Intermediate">
 						    	<%} %>
 							  <span class="form-check-label">
-							    Sedan
+							    Intermediate
 							  </span>
 							</label>  <!-- form-check.// -->
 							<label class="form-check">
@@ -63,15 +63,35 @@
 							  </span>
 							</label> <!-- form-check.// -->
 							<label class="form-check">
-							 <% if (carType != null && Arrays.asList(carType).contains("Sports")) {%>
-							  <input class="form-check-input" name="type" type="checkbox" value="Sports" checked>
+							 <% if (carType != null && Arrays.asList(carType).contains("Standard")) {%>
+							  <input class="form-check-input" name="type" type="checkbox" value="Standard" checked>
 						    <% } else { %>
-						    	<input class="form-check-input" name="type" type="checkbox" value="Sports">
+						    	<input class="form-check-input" name="type" type="checkbox" value="Standard">
 						    	<%} %>
 							  <span class="form-check-label">
-							    Sports
+							    Standard
+							  </span> 
+							</label>  <!-- form-check.// -->		
+							<label class="form-check">
+							 <% if (carType != null && Arrays.asList(carType).contains("Full size")) {%>
+							  <input class="form-check-input" name="type" type="checkbox" value="Full size" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="type" type="checkbox" value="Full size">
+						    	<%} %>
+							  <span class="form-check-label">
+							    Full Size
 							  </span>
-							</label>  <!-- form-check.// -->			
+							</label>  <!-- form-check.// -->	
+							<label class="form-check">
+							 <% if (carType != null && Arrays.asList(carType).contains("Premium")) {%>
+							  <input class="form-check-input" name="type" type="checkbox" value="Premium" checked>
+						    <% } else { %>
+						    	<input class="form-check-input" name="type" type="checkbox" value="Premium">
+						    	<%} %>
+							  <span class="form-check-label">
+							    Premium
+							  </span>
+							</label>  <!-- form-check.// -->		
 						</div> <!-- card-body.// -->
 					</div>
 				</article> <!-- card-group-item.// -->

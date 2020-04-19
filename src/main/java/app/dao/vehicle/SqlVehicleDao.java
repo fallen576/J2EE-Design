@@ -36,7 +36,7 @@ public class SqlVehicleDao implements VehicleDao {
 	}
 	
 	public List<Vehicle> findByTypeDirect(String type) {
-		String sql = "SELECT * FROM vehicle WHERE category = " +  type;
+		String sql = "SELECT * FROM vehicle WHERE (category = " +  type + ")";
 		System.out.println(sql);
 		List<Vehicle> vehicles = new ArrayList<>();
 		try {

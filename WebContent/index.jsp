@@ -1,4 +1,7 @@
  <jsp:include page="/header.jsp"/>
+ <%
+ 	session.setAttribute("carColor", null);
+ %>
 	<div class="container padding">  
 		<!-- <h1 class="text-center color padding">Our Wheels</h1>-->
 		
@@ -51,7 +54,7 @@
 					      <option value="Compact">Compact</option>
 					      <option value="Intermediate">Intermediate</option>
 					      <option value="Standard">Standard</option>
-					      <option value="Full_size">Full Size</option>
+					      <option value="Full size">Full Size</option>
 					      <option value="Premium">Premium</option>
 					      <option value="Luxury">Luxury</option>
 					    </select>

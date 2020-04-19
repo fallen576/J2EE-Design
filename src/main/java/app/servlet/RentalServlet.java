@@ -58,19 +58,25 @@ public class RentalServlet extends HttpServlet {
 			String[] types = request.getParameterValues("type");
 			String[] colors = request.getParameterValues("carColor");
 			
-			String typeQuery = "\'" + types[0] + "\'";
+			String typeQuery = "";
 			
-			for (int i = 1; i < types.length; i++) {
-				typeQuery += " OR category = " + "\'" + types[i] + "\'"; 
+			if (types != null) {
+				typeQuery = "\'" + types[0] + "\'";
+				
+				for (int i = 1; i < types.length; i++) {
+					typeQuery += " OR category = " + "\'" + types[i] + "\'"; 
+				}
 			}
+			
 			String colorQuery = "";
 			
 			if (colors != null) {
-				colorQuery += " AND color = " + "\'" + colors[0] + "\'";
+				colorQuery += ") AND ( color = " + "\'" + colors[0] + "\'";
 				
 				for (int i = 1; i < colors.length; i++) {
 					colorQuery += " OR color = " + "\'" + colors[i] + "\'";  
 				}
+				
 				session.setAttribute("carColor", colors);
 			}
 			else {
