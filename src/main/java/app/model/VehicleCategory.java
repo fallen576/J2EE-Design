@@ -2,11 +2,13 @@ package app.model;
 
 public enum VehicleCategory {
 
-	Compact,
-	SUV,
-	Sedan,
-	Luxury,
-	Sports;
+	ECONOMY,
+	COMPACT,
+	INTERMEDIATE,
+	STANDARD,
+	FULL_SIZE,
+	PREMIUM,
+	LUXURY;
 }
 
 
