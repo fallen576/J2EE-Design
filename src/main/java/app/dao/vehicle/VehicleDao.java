@@ -9,4 +9,12 @@ public interface VehicleDao {
 
 	List<Vehicle> findByType(VehicleCategory type);
 
+	List<Vehicle> findWithFilter(String filter);
+	
+	long insert(Vehicle vehicle);
+	
+	void update(Vehicle vehicle);
+	
+	void delete(long vehicleId);
+
 }

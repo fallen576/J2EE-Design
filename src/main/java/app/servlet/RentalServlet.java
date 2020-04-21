@@ -12,92 +12,59 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import app.dao.vehicle.SqlVehicleDao;
+import app.dao.vehicle.VehicleDao;
 import app.model.Vehicle;
+import app.services.vehicle.DefaultVehicleService;
+import app.services.vehicle.VehicleService;
 import app.utils.ServletUtils;
 
 /**
  * Servlet implementation class RentalServlet
  */
-@WebServlet("/Rental")
+@WebServlet("/rental")
 public class RentalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private String[] types;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RentalServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	
+	private VehicleService vehicleService;
+    
+    public void init() throws ServletException {
+		Connection connection = ServletUtils.connectToSqlDatabase();
+		
+		VehicleDao vehicleDao = new SqlVehicleDao(connection);
+		vehicleService = new DefaultVehicleService(vehicleDao);
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-			
-		Connection con = (Connection) ServletUtils.connectToSqlDatabase();
-		
+
+		String filter = (String) request.getParameter("filter");
+		String[] categories = null;
+		String[] colors = null;
 		//the user is coming from the index page, only car type matters
-		if (request.getParameter("filter").equals("index")) {
-			String carType = request.getParameter("carType");
-			
-			List<Vehicle> vehicles = (List<Vehicle>) new SqlVehicleDao(con).findByTypeDirect( "\'" + carType +  "\'");
-			
-			String[] types = new String[1];
-			types[0] = carType;
-			
-			session.setAttribute("vehicles", vehicles);
-			session.setAttribute("type", types);
-			
+		if (filter.equals("index")) {
+			colors = new String[0];
+			categories = new String[1];
+			categories[0] = request.getParameter("vehicleCategory");
+		} else if (filter.equals("panel")) {
+			//the user is refining their search from /Select.jsp
+			colors = request.getParameterValues("carColor");
+			categories = request.getParameterValues("vehicleCategory");
 		}
-		
-		//the user is refining their search from /Select.jsp
-		if (request.getParameter("filter").equals("panel")) {
-			String[] types = request.getParameterValues("type");
-			String[] colors = request.getParameterValues("carColor");
-			
-			String typeQuery = "";
-			
-			if (types != null) {
-				typeQuery = "\'" + types[0] + "\'";
-				
-				for (int i = 1; i < types.length; i++) {
-					typeQuery += " OR category = " + "\'" + types[i] + "\'"; 
-				}
-			}
-			
-			String colorQuery = "";
-			
-			if (colors != null) {
-				colorQuery += ") AND ( color = " + "\'" + colors[0] + "\'";
-				
-				for (int i = 1; i < colors.length; i++) {
-					colorQuery += " OR color = " + "\'" + colors[i] + "\'";  
-				}
-				
-				session.setAttribute("carColor", colors);
-			}
-			else {
-				session.setAttribute("carColor", new String[1]);
-			}
-			
-			String query = typeQuery + colorQuery;
-			
-			List<Vehicle> vehicles = (List<Vehicle>) new SqlVehicleDao(con).findByTypeDirect(typeQuery + colorQuery);
-			session.setAttribute("vehicles", vehicles);
-			session.setAttribute("type", types);
-		}
-		
-		response.sendRedirect(request.getContextPath() + "/Select.jsp");
+
+		List<Vehicle> vehicles = vehicleService.filterVehicles(categories, colors);
+		session.setAttribute("vehicles", vehicles);
+		session.setAttribute("vehicleCategory", categories);
+		session.setAttribute("carColor", colors);
+		response.sendRedirect(request.getContextPath() + "/select.jsp");
 	}
 
 	/** 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);		
 	}
 

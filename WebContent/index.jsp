@@ -9,7 +9,7 @@
 			<h1 class="display-4">Welcome to Deals on Wheels</h1>
 			<p class="lead">Let us know a little about your trip</p>
 			<hr class="my-4">
-			<form action="Rental" method="Get">
+			<form action="rental" method="Get">
 				<div class="container">
 				<!-- 
 					<h5>Contact Information</h5>
@@ -49,14 +49,14 @@
 					</div>
 					<div class="form-group padT">
 					    <label for="numDrivers"><h5>What type of car would you like?</h5></label>
-					    <select class="form-control" id="numDrivers" name="carType" required>
-					      <option value="Economy">Economy</option>
-					      <option value="Compact">Compact</option>
-					      <option value="Intermediate">Intermediate</option>
-					      <option value="Standard">Standard</option>
-					      <option value="Full size">Full Size</option>
-					      <option value="Premium">Premium</option>
-					      <option value="Luxury">Luxury</option>
+					    <select class="form-control" id="vehicleCategory" name="vehicleCategory" required>
+					      <option value="ECONOMY">Economy</option>
+					      <option value="COMPACT">Compact</option>
+					      <option value="INTERMEDIATE">Intermediate</option>
+					      <option value="STANDARD">Standard</option>
+					      <option value="FULL_SIZE">Full Size</option>
+					      <option value="PREMIUM">Premium</option>
+					      <option value="LUXURY">Luxury</option>
 					    </select>
 					</div>
 					<div class="button padT">

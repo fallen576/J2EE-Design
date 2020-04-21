@@ -1,9 +1,11 @@
 package app.model;
 
+import static app.utils.StringUtils.isEmpty;
+
 public class Vehicle {
 	
 	private long id;
-	private String type;
+	private VehicleCategory category;
 	private String make;
 	private String model;
 	private String color;
@@ -20,12 +22,12 @@ public class Vehicle {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public VehicleCategory getCategory() {
+		return category;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setCategory(VehicleCategory category) {
+		this.category = category;
 	}
 
 	public String getMake() {
@@ -58,5 +60,9 @@ public class Vehicle {
 	
 	public void setImg(String img) {
 		this.img = img;
+	}
+
+	public boolean isValid() {
+		return category == null || isEmpty(make) || isEmpty(model) || isEmpty(color) || isEmpty(img); 
 	}
 }
