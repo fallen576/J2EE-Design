@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import app.dao.reservation.ReservationDao;
+import app.dao.reservation.SqlReservationDao;
 import app.dao.vehicle.SqlVehicleDao;
 import app.dao.vehicle.VehicleDao;
 import app.model.Vehicle;
@@ -28,9 +30,11 @@ public class AdminServlet extends HttpServlet {
 	public void init() throws ServletException {
 		Connection connection = ServletUtils.connectToSqlDatabase();
 		VehicleDao vehicleDao = new SqlVehicleDao(connection);
+		ReservationDao reservationDao = new SqlReservationDao(connection);
+		
 		VehicleService vehicleService = new DefaultVehicleService(vehicleDao);
 		
-		adminService = new DefaultAdminService(vehicleService);
+		adminService = new DefaultAdminService(vehicleService, reservationDao);
 	}
 	
 	/**
