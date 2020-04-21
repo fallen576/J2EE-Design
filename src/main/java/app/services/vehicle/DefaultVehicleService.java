@@ -28,7 +28,7 @@ public class DefaultVehicleService implements VehicleService {
 		}
 		
 		if (colors != null && colors.length > 0) {
-			if (types.length > 0) {
+			if (types != null && types.length > 0) {
 				colorFilter.append(" AND ");
 			}
 			
