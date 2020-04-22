@@ -36,7 +36,7 @@
 			 		 </form>
 		 		 </li>
 		 		 <li class="nav-item pad" style="padding-left:10px;">
-					<form class="form-inline" action="" method="POST">
+					<form class="form-inline" action="account" method="POST">
 						<input name="createAccount" value="true" type="hidden"/>
 			    		<button class="btn btn-success" type="submit">Create Account</button>
 			 		 </form>
