@@ -8,9 +8,13 @@
 			<hr class="my-4">
 			<form action="account" method="Post">
 			 	<div class="form-row">
-    				<div class="form-group col-md-6">
-      					<label for="name">Name</label>
-      					<input type="text" class="form-control" id="name" placeholder="John Doe" required>
+    				<div class="form-group col-md-2">
+      					<label for="firstName">First Name</label>
+      					<input type="text" class="form-control" id="firstName" placeholder="John" required>
+    				</div>
+    				<div class="form-group col-md-4">
+      					<label for="lastName">Last Name</label>
+      					<input type="text" class="form-control" id="lastName" placeholder="Doe" required>
     				</div>
     				<div class="form-group col-md-6">
       					<label for="email">Email</label>
