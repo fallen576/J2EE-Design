@@ -41,6 +41,11 @@ public class DefaultAdminService implements AdminService {
 			throw new IllegalArgumentException("Cannot delete a vehicle with a reservation in the future");
 		}
 	}
+
+	@Override
+	public List<Vehicle> getAllVehicles() {
+		return vehicleService.getAllVehicles();
+	}
 	
 	private boolean vehicleHasFutureReservation(long vehicleId) {
 		List<Reservation> reservations = reservationDao.findByVehicleIds(Arrays.asList(vehicleId));

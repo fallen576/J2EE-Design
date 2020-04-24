@@ -1,3 +1,11 @@
+<%@page import="app.model.*"%>
+<%@page import="java.util.*"%>
+<%
+	//get session variables here
+	User user = (User) session.getAttribute("user");
+	boolean isAdmin = user != null && user.isAdmin();
+%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <!-- Bootstrap CSS -->
@@ -24,6 +32,11 @@
 				<li class="nav-item"> 
 					<a class="nav-link text-dark  rounded" href="">Profile</a> 
 				</li>
+				<% if (isAdmin) {%>
+					<li class="nav-item"> 
+						<a class="nav-link text-dark  rounded" href="/J2EE-Design/admin">Admin</a> 
+				  	</li>
+			    <%}%>
 			</ul> 
 		</div>
 		<div class="navbar-collapse collapse w-100 order-3 order-md-0 dual-collapse2">

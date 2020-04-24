@@ -1,5 +1,7 @@
 package app.services.admin;
 
+import java.util.List;
+
 import app.model.Vehicle;
 
 public interface AdminService {
@@ -9,5 +11,7 @@ public interface AdminService {
 	void updateVehicle(Vehicle vehicle);
 	
 	void deleteVehicle(long vehicleId);
+
+	List<Vehicle> getAllVehicles();
 
 }

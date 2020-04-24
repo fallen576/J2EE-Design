@@ -43,6 +43,11 @@ public class DefaultVehicleService implements VehicleService {
 	}
 
 	@Override
+	public List<Vehicle> getAllVehicles() {
+		return vehicleDao.findWithFilter(null);
+	}
+
+	@Override
 	public Vehicle insert(Vehicle vehicle) {
 		if (vehicle.isValid()) {
 			long id = vehicleDao.insert(vehicle);

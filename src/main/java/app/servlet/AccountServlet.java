@@ -15,26 +15,14 @@ import app.dao.user.UserDao;
 import app.model.User;
 import app.services.user.DefaultUserService;
 import app.services.user.UserService;
-//import javax.servlet.http.HttpSession;
 import app.utils.ServletUtils;
 
-/**
- * Servlet implementation class AccountServlet
- */
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private UserService userService;
 	private UserDao userDao;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AccountServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	public void init() throws ServletException {
 		Connection connection = ServletUtils.connectToSqlDatabase();
@@ -43,16 +31,9 @@ public class AccountServlet extends HttpServlet {
 		userService = new DefaultUserService(userDao);
 	}
 	
-	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		 HttpSession session = request.getSession();
-
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String createAccount = (String) request.getParameter("createAccount");
 
 		// User is looking to create a new account

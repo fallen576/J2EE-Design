@@ -10,6 +10,7 @@ import java.util.List;
 
 import app.model.Vehicle;
 import app.model.VehicleCategory;
+import app.utils.StringUtils;
 
 public class SqlVehicleDao implements VehicleDao {
 	
@@ -38,7 +39,10 @@ public class SqlVehicleDao implements VehicleDao {
 	
 	@Override
 	public List<Vehicle> findWithFilter(String filter) {
-		String sql = "SELECT * FROM vehicle WHERE " +  filter;
+		String sql = "SELECT * FROM vehicle";
+		if (StringUtils.isNotEmpty(filter)) {
+			sql += " WHERE " + filter;
+		}
 		List<Vehicle> vehicles = new ArrayList<>();
 		try {
 			Statement statement = connection.createStatement();
