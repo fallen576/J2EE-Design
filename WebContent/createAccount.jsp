@@ -10,20 +10,20 @@
 			 	<div class="form-row">
     				<div class="form-group col-md-2">
       					<label for="firstName">First Name</label>
-      					<input type="text" class="form-control" id="firstName" placeholder="John" required>
+      					<input type="text" class="form-control" id="firstName" placeholder="John" name="firstName" required>
     				</div>
     				<div class="form-group col-md-4">
       					<label for="lastName">Last Name</label>
-      					<input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+      					<input type="text" class="form-control" id="lastName" placeholder="Doe" name="lastName" required>
     				</div>
     				<div class="form-group col-md-6">
       					<label for="email">Email</label>
-      					<input type="email" class="form-control" id="email" placeholder="JohnDoe@gmail.com" required>
+      					<input type="email" class="form-control" id="email" placeholder="JohnDoe@gmail.com" name="email" required>
     				</div>
     			</div>
     			<div class="form-group">
     				<label for="password">Password</label>
-      				<input type="password" class="form-control" id="password" placeholder="" required>
+      				<input type="password" class="form-control" id="password" placeholder="" name="password" required>
     			</div>
     			<div class="form-group">
     				<label for="address">Address</label>
