@@ -40,11 +40,13 @@
 			</ul> 
 		</div>
 		<div class="navbar-collapse collapse w-100 order-3 order-md-0 dual-collapse2">
+		<%if (user == null) { %>
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item pad">
-					<form class="form-inline" action="" method="POST">
-			    		<input class="form-control mr-sm-3 navBar" type="text" placeholder="username">
-			    		<input class="form-control mr-sm-3" type="password" placeholder="password" data-toggle="password">
+					<form class="form-inline" action="account" method="POST">
+			    		<input class="form-control mr-sm-3 navBar" type="text" placeholder="email" name="email">
+			    		<input class="form-control mr-sm-3" type="password" placeholder="password" data-toggle="password" name="password">
+			    		<input name="createAccount" value="login" type="hidden"/>
 			    		<button class="btn btn-success" type="submit">Login</button>
 			 		 </form>
 		 		 </li>
@@ -55,5 +57,18 @@
 			 		 </form>
 		 		 </li>
 	 		 </ul>
+	 		 <%} else { %>
+	 		 	<ul class="navbar-nav ml-auto">
+					<li class="nav-item pad">
+						<h6>Hi ${user.firstName}</h6>
+					</li>
+					<li class="nav-item pad">
+						<form class="form-inline" action="account" method="POST">
+							<input name="createAccount" value="logout" type="hidden"/>
+							<button class="btn btn-success" type="submit">Logout</button>
+						</form>
+					</li>
+				</ul>
+	 		 <%} %>
  		 </div> 
 	</nav> 

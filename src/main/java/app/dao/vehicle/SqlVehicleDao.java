@@ -40,9 +40,11 @@ public class SqlVehicleDao implements VehicleDao {
 	@Override
 	public List<Vehicle> findWithFilter(String filter) {
 		String sql = "SELECT * FROM vehicle";
-		if (StringUtils.isNotEmpty(filter)) {
+		
+		if (!filter.equals("")) {
 			sql += " WHERE " + filter;
 		}
+
 		List<Vehicle> vehicles = new ArrayList<>();
 		try {
 			Statement statement = connection.createStatement();

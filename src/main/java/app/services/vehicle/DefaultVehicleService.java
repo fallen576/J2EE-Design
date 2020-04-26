@@ -38,7 +38,6 @@ public class DefaultVehicleService implements VehicleService {
 			}
 			colorFilter.append(")");
 		}
-		
 		return vehicleDao.findWithFilter(categoryFilter.append(colorFilter.toString()).toString());
 	}
 

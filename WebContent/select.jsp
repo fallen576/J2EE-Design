@@ -188,64 +188,6 @@
 		     				}
 		     			}
 		     		%>
-		     		<!-- 
-		     			<div class="col-md-2 col-md-4">
-					       <div class="product"><img src="/J2EE-Design/images/blueBMW.png" alt="">
-					           <h6>Small Boi</h6>  
-					             <span>
-					             	<form method="POST">  
-					             		<input type="hidden" name="carToSelect" value="car0>">
-					             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
-					             	</form>
-					             </span>
-					       </div>
-		     			</div>
-		     			<div class="col-md-2 col-md-4">
-					       <div class="product"><img src="/J2EE-Design/images/blueWRX.png" alt="">
-					           <h6>Small Boi</h6>  
-					             <span>
-					             	<form method="POST">  
-					             		<input type="hidden" name="carToSelect" value="car0>">
-					             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
-					             	</form>
-					             </span>
-					       </div>
-		     			</div>
-		     			<div class="col-md-2 col-md-4">
-					       <div class="product"><img src="/J2EE-Design/images/greenCivic.png" alt="">
-					           <h6>Small Boi</h6>  
-					             <span>
-					             	<form method="POST">  
-					             		<input type="hidden" name="carToSelect" value="car0>">
-					             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
-					             	</form>
-					             </span>
-					       </div>
-		     			</div>
-		     			<div class="col-md-2 col-md-4">
-					       <div class="product"><img src="/J2EE-Design/images/silverCamry.png" alt="">
-					           <h6>Small Boi</h6>  
-					             <span>
-					             	<form method="POST">  
-					             		<input type="hidden" name="carToSelect" value="car0>">
-					             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
-					             	</form>
-					             </span>
-					       </div>
-		     			</div>
-		     			<div class="col-md-2 col-md-4">
-					       <div class="product"><img src="/J2EE-Design/images/silverYukon.png" alt="">
-					           <h6>Small Boi</h6>  
-					             <span>
-					             	<form method="POST">  
-					             		<input type="hidden" name="carToSelect" value="car0>">
-					             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
-					             	</form>
-					             </span>
-					       </div>
-		     			</div>
-		     		</div>
-		     		 -->
 		     </div>
 		   </div>
 		 </div>

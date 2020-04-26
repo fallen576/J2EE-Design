@@ -53,7 +53,21 @@ public class AccountServlet extends HttpServlet {
 			
 			
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
+		} else if (createAccount.equals("login")) {
+			String email = (String) request.getParameter("email");
+			String password = (String) request.getParameter("password");
+			
+			User user = userDao.checkLogin(email, password);
+			session.setAttribute("user", user);
+						
+			if (user == null) {
+				response.sendRedirect(request.getContextPath() + "/unauthorized.jsp");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/select.jsp");
+			}
+		} else if (createAccount.equals("logout")) {
+			session.setAttribute("user", null);
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
 	}
-
 }
