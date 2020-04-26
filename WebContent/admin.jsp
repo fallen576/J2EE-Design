@@ -67,6 +67,10 @@
 					      					<label for="color">Color:</label>
 					      					<input type="text" class="form-control" name="color" value="<%= color %>" required>
 					    				</div>
+					    				<div class="row">
+					    					<label for="img">Image:</label>
+					      					<input type="text" class="form-control" name="img" value="<%= path %>" required disabled>
+					    				</div>
 						       		</div>
 					       		</div>
 					       		<div class="save-btn">
