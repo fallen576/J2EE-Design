@@ -168,13 +168,13 @@
 		     			if (vehicles != null) {
 		     				for (int i = 0; i < vehicles.size(); i++) {
 		     					Vehicle v = vehicles.get(i);
-		     					String path = v.getImg();
+		     					String base64Img = v.getBase64Img();
 		     					String make = v.getMake();
 		     					String model = v.getModel();
 		     					long id = v.getId();
 		     		%>
 		     				<div class="col-md-2 col-md-4">
-						       <div class="product"><img src="<%= path %>" alt="">
+						       <div class="product"><img src="data:image/png;base64,<%= base64Img %>" alt="">
 						           <h6><%= make + " " + model%></h6>  
 						             <span>
 						             	<form method="POST">  

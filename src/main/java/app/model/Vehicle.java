@@ -2,14 +2,18 @@ package app.model;
 
 import static app.utils.StringUtils.isEmpty;
 
-public class Vehicle {
+import java.io.Serializable;
+
+public class Vehicle implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private long id;
 	private VehicleCategory category;
 	private String make;
 	private String model;
 	private String color;
-	private String img;
+	private String base64Img;
 	
 	public Vehicle() {
 	}
@@ -54,15 +58,21 @@ public class Vehicle {
 		this.color = color;
 	}
 	
-	public String getImg() {
-		return this.img;
+	public String getBase64Img() {
+		return this.base64Img;
 	}
 	
-	public void setImg(String img) {
-		this.img = img;
+	public void setBase64Img(String base64Img) {
+		this.base64Img = base64Img;
 	}
 
 	public boolean isValid() {
-		return category == null || isEmpty(make) || isEmpty(model) || isEmpty(color) || isEmpty(img); 
+		return category != null && !isEmpty(make) && !isEmpty(model) && !isEmpty(color) && !isEmpty(base64Img); 
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicle [id=" + id + ", category=" + category + ", make=" + make + ", model=" + model + ", color="
+				+ color + ", base64Img=" + base64Img + "]";
 	}
 }

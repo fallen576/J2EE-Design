@@ -41,7 +41,7 @@ public class SqlVehicleDao implements VehicleDao {
 	public List<Vehicle> findWithFilter(String filter) {
 		String sql = "SELECT * FROM vehicle";
 		
-		if (!filter.equals("")) {
+		if (StringUtils.isNotEmpty(filter)) {
 			sql += " WHERE " + filter;
 		}
 
@@ -60,14 +60,14 @@ public class SqlVehicleDao implements VehicleDao {
 
 	@Override
 	public long insert(Vehicle vehicle) {
-		String sql = "INSERT INTO vehicle (color, make, model, category, img_path) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO vehicle (color, make, model, category, img_base64) VALUES (?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, vehicle.getColor());
 			statement.setString(2, vehicle.getMake());
 			statement.setString(3, vehicle.getModel());
 			statement.setString(4, vehicle.getCategory().name());
-			statement.setString(5, vehicle.getImg());
+			statement.setString(5, vehicle.getBase64Img());
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			rs.next();
@@ -80,14 +80,14 @@ public class SqlVehicleDao implements VehicleDao {
 
 	@Override
 	public void update(Vehicle vehicle) {
-		String sql = "UPDATE vehicle SET color = ?, make = ?, model = ?, category = ?, img_path = ? WHERE id = ?";
+		String sql = "UPDATE vehicle SET color = ?, make = ?, model = ?, category = ?, img_base64 = ? WHERE id = ?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, vehicle.getColor());
 			statement.setString(2, vehicle.getMake());
 			statement.setString(3, vehicle.getModel());
 			statement.setString(4, vehicle.getCategory().name());
-			statement.setString(5, vehicle.getImg());
+			statement.setString(5, vehicle.getBase64Img());
 			statement.setLong(6, vehicle.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
@@ -114,7 +114,7 @@ public class SqlVehicleDao implements VehicleDao {
 		vehicle.setMake(rs.getString("make"));
 		vehicle.setModel(rs.getString("model")); 
 		vehicle.setCategory(VehicleCategory.valueOf(rs.getString("category")));
-		vehicle.setImg(rs.getString("img_path"));
+		vehicle.setBase64Img(rs.getString("img_base64"));
 		return vehicle;
 	}
 

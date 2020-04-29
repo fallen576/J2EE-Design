@@ -49,35 +49,25 @@ public class AdminServlet extends HttpServlet {
 	
 	/**
 	 * Insert a new vehicle for rental
+	 * @throws IOException 
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		String method = request.getParameter("method");
 		Vehicle vehicle = this.getVehicleFromRequest(request);
-		vehicle = adminService.insertVehicle(vehicle);
-
-		List<Vehicle> vehicles = (List<Vehicle>) session.getAttribute("allVehicles");
-		vehicles.add(vehicle);
-		session.setAttribute("allVehicles", vehicles);
-	}
-	
-	/**
-	 * Update an existing rental vehicle
-	 */
-	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		Vehicle vehicle = this.getVehicleFromRequest(request);
-		adminService.updateVehicle(vehicle);
-	}
-	
-	/**
-	 * Delete a vehicle for rental
-	 */
-	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		HttpSession session = request.getSession();
-		Object genericVehicle = session.getAttribute("vehicleDeleteId");
-		if (genericVehicle != null) {
-			Vehicle vehicle = (Vehicle) genericVehicle;
-			adminService.deleteVehicle(vehicle.getId());
+		if (StringUtils.isNotEmpty(method)) {
+			if (method.equalsIgnoreCase("PUT")) {
+				adminService.updateVehicle(vehicle);
+			} else if (method.equalsIgnoreCase("DELETE")) {
+				String deleteId = (String) session.getAttribute("vehicleDeleteId");
+				adminService.deleteVehicle(Long.parseLong(deleteId));
+			}
+		} else {
+			vehicle = adminService.insertVehicle(vehicle);
 		}
+		List<Vehicle> allVehicles = adminService.getAllVehicles();
+		session.setAttribute("allVehicles", allVehicles);
+		response.sendRedirect(request.getContextPath() + "/admin.jsp");
 	}
 	
 	private Vehicle getVehicleFromRequest(HttpServletRequest request) {
@@ -86,14 +76,14 @@ public class AdminServlet extends HttpServlet {
 		String make = (String) request.getParameter("make");
 		String model = (String) request.getParameter("model");
 		String color = (String) request.getParameter("color");
-		String img = (String) request.getParameter("img");
+		String base64Img = (String) request.getParameter("base64Img");
 		
 		Vehicle vehicle = new Vehicle();
 		vehicle.setCategory(VehicleCategory.valueOf(category));
 		vehicle.setMake(make);
 		vehicle.setModel(model);
 		vehicle.setColor(color);
-		vehicle.setImg(img);
+		vehicle.setBase64Img(base64Img);
 		
 		if (StringUtils.isNotEmpty(id)) {
 			vehicle.setId(Long.parseLong(id));
