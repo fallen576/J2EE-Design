@@ -16,8 +16,8 @@ import app.model.User;
 
 public class DefaultEmailService implements EmailService {
 	
-	private static final String FROM = "dealsonwheels@gmail.com";
-	private static final String PASSWORD = "dz.4{*.=9c8A2uX9";
+	private static final String FROM = "dealsonwheels.jhu@gmail.com";
+	private static final String PASSWORD = "rF;aS44=";
 
 	@Override
 	public void send(User user, Reservation reservation) {

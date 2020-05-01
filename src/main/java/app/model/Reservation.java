@@ -6,7 +6,6 @@ public class Reservation {
 
 	private long reservationId;
 	private String confirmationNumber;
-	private long vehicleId;
 	private String pickupLocation;
 	private String dropoffLocation;
 	private Date pickupDate;
@@ -38,14 +37,6 @@ public class Reservation {
 
 	public void setConfirmationNumber(String confirmationNumber) {
 		this.confirmationNumber = confirmationNumber;
-	}
-
-	public long getVehicleId() {
-		return vehicleId;
-	}
-
-	public void setVehicleId(long vehicleId) {
-		this.vehicleId = vehicleId;
 	}
 
 	public String getPickupLocation() {

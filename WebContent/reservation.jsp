@@ -2,7 +2,7 @@
 <%@page import="java.util.*"%>
 <%
 	User user = (User) session.getAttribute("user");
-	if (user == null || !user.isAdmin()) {
+	if (user == null) {
 		response.sendRedirect(request.getContextPath() + "/authorization.jsp");
 	}
 	List<Reservation> reservation = (List<Reservation>) session.getAttribute("reservations");

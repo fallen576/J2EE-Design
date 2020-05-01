@@ -19,6 +19,16 @@ public class Vehicle implements Serializable {
 	public Vehicle() {
 	}
 
+	public Vehicle(Vehicle vehicle) {
+		this.id = vehicle.getId();
+		this.category = vehicle.getCategory();
+		this.make = vehicle.getMake();
+		this.model = vehicle.getModel();
+		this.color = vehicle.getColor();
+		this.base64Img = vehicle.getBase64Img();
+		this.costPerDay = vehicle.getCostPerDay();
+	}
+
 	public long getId() {
 		return id;
 	}

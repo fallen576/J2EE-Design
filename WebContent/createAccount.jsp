@@ -31,7 +31,7 @@
     			</div>
     			<div class="form-group">
     				<label for="address2">Address 2</label>
-      				<input type="text" class="form-control" id="address2" placeholder="Apartment, studio, suite, floor" required>
+      				<input type="text" class="form-control" id="address2" placeholder="Apartment, studio, suite, floor">
     			</div>
 				<div class="form-row">
     				<div class="form-group col-md-6">

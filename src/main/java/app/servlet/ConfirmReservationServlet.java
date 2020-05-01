@@ -20,6 +20,7 @@ import app.dao.vehicle.SqlVehicleDao;
 import app.dao.vehicle.VehicleDao;
 import app.model.Reservation;
 import app.model.User;
+import app.model.Vehicle;
 import app.model.VehicleCategory;
 import app.services.reservation.DefaultReservationService;
 import app.services.reservation.ReservationService;
@@ -51,19 +52,14 @@ public class ConfirmReservationServlet extends HttpServlet {
 		HttpSession session = request.getSession(); 
 		Object userObject = session.getAttribute("user");
 		String modify = (String) request.getParameter("modify");
-		System.out.println(modify);
 		
 		//user wants to change car
 		if(modify.equals("modifyCar")) {
-			System.out.println("select redirect");
 			response.sendRedirect(request.getContextPath() + "/select.jsp");
-			return;
 		} 
 		//user wants to change itinerary
 		else if(modify.equals("modifyItinerary")) {
-			System.out.println("select redirect");
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
-			return;
 		}
 		
 		if (userObject != null) {
@@ -72,40 +68,32 @@ public class ConfirmReservationServlet extends HttpServlet {
 			String pickupDateString = (String) request.getAttribute("pickup_date");
 			String dropoffDateString = (String) request.getAttribute("dropoff_date");
 			String vehicleCategoryString = (String) session.getAttribute("category");
-			String location = (String) session.getAttribute("location");
-			String pickupTime = (String) session.getAttribute("pickupTime");
-			pickupTime = pickupTime.replaceFirst("T", " ");
+			String pickupTimeString = (String) session.getAttribute("pickupTime");
+			pickupTimeString = pickupTimeString.replaceFirst("T", " ");
 			
-			System.out.println(pickupLocation);
-			System.out.println(pickupTime);
-			System.out.println(vehicleCategoryString);
-			String dropoffTime = (String) session.getAttribute("dropoffTime");
-			dropoffTime = dropoffTime.replaceFirst("T", " ");
+			String dropoffTimeString = (String) session.getAttribute("dropoffTime");
+			dropoffTimeString = dropoffTimeString.replaceFirst("T", " ");
 			
-			long id = (Long) Long.parseLong(request.getParameter("carToSelect"));
-			
-			System.out.println(dropoffTime + ' ' + pickupTime);
+			String id = request.getParameter("carToSelect");
+			Vehicle vehicle = vehicleDao.findById(id).get(0);
 			
 			VehicleCategory vehicleCategory;
 			Date pickupDate; 
 			Date dropoffDate;
-			try {				
-				//pickupDate = DATE_TIME_FORMATTER.parse(pickupDateString);
-				//dropoffDate = DATE_TIME_FORMATTER.parse(dropoffDateString);
-				SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-				pickupDate = format.parse(pickupTime);
-				dropoffDate = format.parse(dropoffTime);
+			try {
+				pickupDate = DATE_TIME_FORMATTER.parse(pickupDateString + " " + pickupTimeString);
+				dropoffDate = DATE_TIME_FORMATTER.parse(dropoffDateString + " " + dropoffTimeString);
 				vehicleCategory = VehicleCategory.valueOf(vehicleCategoryString);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
 				throw new RuntimeException("Unable to parse pickup date, dropoff date, and/or vehicle type");
 			}
 			
-			Reservation reservation = new Reservation(location, location, pickupDate, dropoffDate);
+			Reservation reservation = new Reservation(pickupLocation, dropoffLocation, pickupDate, dropoffDate);
 			User user = (User) userObject;
-			reservationService.confirmReservation(user, reservation, vehicleCategory);			
+			Reservation confirmedReservation = reservationService.confirmReservation(user, reservation, vehicle, vehicleCategory);
+			session.setAttribute("reservation", confirmedReservation);
+			response.sendRedirect(request.getContextPath() + "/checkout.jsp");
 		}
-		response.sendRedirect(request.getContextPath() + "/confirmation.jsp");
 	}
 
 }

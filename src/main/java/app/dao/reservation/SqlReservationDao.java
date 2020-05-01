@@ -28,7 +28,7 @@ public class SqlReservationDao implements ReservationDao {
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, reservation.getConfirmationNumber());
-			statement.setLong(2, reservation.getVehicleId());
+			statement.setLong(2, reservation.getVehicle().getId());
 			statement.setString(3, reservation.getPickupLocation());
 			statement.setString(4, reservation.getDropoffLocation());
 			statement.setDate(5, new Date(reservation.getPickupDate().getTime()));
@@ -62,23 +62,20 @@ public class SqlReservationDao implements ReservationDao {
 
 	@Override
 	public List<Reservation> findByUserId(long userId) {
-		//String sql = "SELECT * FROM reservation INNER JOIN user_reservation"
-		//		+ " ON reservation.id = user_reservation.reservation_id WHERE user_id = \'" + userId + "\'";
 		String sql = "SELECT * FROM reservation res INNER JOIN "
 				+ "user_reservation ur ON res.id = ur.reservation_id LEFT JOIN"
-				+ " vehicle v ON res.vehicle_id = v.id WHERE ur.user_id = \'" + userId + "\'";
+				+ " vehicle v ON res.vehicle_id = v.id WHERE ur.user_id = ?";
 		List<Reservation> reservations = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			//statement.setLong(1, userId);
-			ResultSet rs = statement.executeQuery(sql);
+			statement.setLong(1, userId);
+			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				Reservation r = this.mapReservation(rs);
 				r.setVehicle(this.mapVehicle(rs));
 				reservations.add(r);
 			}
 		} catch (SQLException e) {
-			System.out.println("sql " + sql);
 			e.printStackTrace();
 		}
 		return reservations;
@@ -110,7 +107,6 @@ public class SqlReservationDao implements ReservationDao {
 		Reservation reservation = new Reservation();
 		reservation.setReservationId(rs.getInt("reservation_id"));
 		reservation.setConfirmationNumber(rs.getString("confirmation_number"));
-		reservation.setVehicleId(rs.getInt("vehicle_id"));
 		reservation.setPickupDate(rs.getDate("pickup_date"));
 		reservation.setPickupLocation(rs.getString("pickup_location"));
 		reservation.setDropoffDate(rs.getDate("dropoff_date"));

@@ -74,7 +74,6 @@ public class AccountServlet extends HttpServlet {
 			String lastName = (String) request.getParameter("lastName");
 			 
 			User userUpdate = new User(firstName, lastName, email);
-			//System.out.println("test " + request.getParameter("id"));
 			userUpdate.setId(Long.parseLong(request.getParameter("id")));
 			
 			userDao.update(userUpdate);

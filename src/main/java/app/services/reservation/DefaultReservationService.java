@@ -1,5 +1,6 @@
 package app.services.reservation;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class DefaultReservationService implements ReservationService {
 	}
 	
 	@Override
-	public void confirmReservation(User user, Reservation reservation, VehicleCategory category) {
+	public Reservation confirmReservation(User user, Reservation reservation, Vehicle possibleVehicle, VehicleCategory category) {
 		if (!reservation.getDropoffDate().after(reservation.getPickupDate())) {
 			throw new RuntimeException("Cannot have the pickup date after the dropoff date");
 		}
@@ -39,7 +40,11 @@ public class DefaultReservationService implements ReservationService {
 			throw new RuntimeException("User has a reservation in the requested date range");
 		}
 		
-		Vehicle availableVehicle = this.findAvailableVehicle(reservation, category);
+		Vehicle availableVehicle = new Vehicle(possibleVehicle);
+		if (this.vehicleHasConflictingReservation(reservation, availableVehicle)) {
+			availableVehicle = this.findAvailableVehicle(reservation, category);
+		}
+		
 		if (availableVehicle == null) {
 			throw new RuntimeException("No " + category.name() + " vehicles available during the reservation period");
 		}
@@ -50,14 +55,20 @@ public class DefaultReservationService implements ReservationService {
 			confirmationNumber = ConfirmationNumberGenerator.generate();
 		}
 		reservation.setConfirmationNumber(confirmationNumber);
-		reservation.setVehicleId(availableVehicle.getId());
-		
-		//testing
-		reservation.setPaid(true);
+		reservation.setVehicle(availableVehicle);
 		
 		long reservationId = reservationDao.insert(reservation);
+		reservation.setReservationId(reservationId);
 		userReservationDao.insert(user.getId(), reservationId);
-		//emailService.send(user, reservation);
+		
+		emailService.send(user, reservation);
+		
+		return reservation;
+	}
+
+	@Override
+	public List<Reservation> findUserReservations(User user) {
+		return reservationDao.findByUserId(user.getId());
 	}
 	
 	private Vehicle findAvailableVehicle(Reservation reservation, VehicleCategory vehicleType) {
@@ -67,13 +78,20 @@ public class DefaultReservationService implements ReservationService {
 				.filter(vr -> vr.getDropoffDate().after(reservation.getPickupDate()) || reservation.getDropoffDate().after(vr.getPickupDate()))
 				.collect(Collectors.toList());
 		return vehicles.stream()
-				.filter(vehicle -> !conflictingVehicleReservations.stream().anyMatch(vr -> vr.getVehicleId() == vehicle.getId()))
+				.filter(vehicle -> !conflictingVehicleReservations.stream().anyMatch(vr -> vr.getVehicle().getId() == vehicle.getId()))
 				.findFirst().orElse(null);
 	}
 	
 	private boolean hasReservation(User user, Reservation reservation) {
 		List<Reservation> userReservations = reservationDao.findByUserId(user.getId());
 		return userReservations.stream().anyMatch(r -> r.getDropoffDate().after(reservation.getPickupDate()));		
+	}
+	
+	private boolean vehicleHasConflictingReservation(Reservation reservation, Vehicle vehicle) {
+		List<Reservation> vehicleReservations = reservationDao.findByVehicleIds(Arrays.asList(vehicle.getId()));
+		return vehicleReservations.stream().anyMatch(vr -> {
+			return !vr.getDropoffDate().before(reservation.getPickupDate()) || reservation.getDropoffDate().after(vr.getPickupDate());
+		});
 	}
 	
 }
