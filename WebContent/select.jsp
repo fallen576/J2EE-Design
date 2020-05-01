@@ -175,7 +175,11 @@
 		     		%>
 		     				<div class="col-md-2 col-md-4">
 						       <div class="product"><img src="data:image/png;base64,<%= base64Img %>" alt="">
-						           <h6><%= make + " " + model%></h6>  
+						       	   <div>
+					       	   		 <h6><%= make + " " + model%></h6>
+					       	   		 <span>$<%= v.getCostPerDay() %> per day</span>
+				       	   		   </div>
+						             
 						             <span>
 						             	<form method="POST">  
 						             		<input type="hidden" name="carToSelect" value="<%= id%>">

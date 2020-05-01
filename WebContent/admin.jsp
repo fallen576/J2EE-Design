@@ -65,6 +65,11 @@
 					      					<label for="model">Model:</label>
 					      					<input type="text" class="form-control" name="model" value="<%= model %>" required>
 					    				</div>
+					    				<div class="row">
+					    					<label for="costPerDay">Cost Per Day:</label>
+					    					<input type="number" class="form-control" name="costPerDay" step="0.01"
+					    						min="0" max="999.99" value="<%= v.getCostPerDay() %>" required />
+					    				</div>
 						       		</div>
 						       		<div class="table">
 						       			<div class="row">
@@ -88,10 +93,11 @@
 					      					<input type="file" class="form-control" id="image-<%= id %>" onchange="encodeBase64Image(id)">
 					      					<input type="hidden" name="base64Img" value="<%= base64Img %>" />
 					    				</div>
+							       		<div class="row save-btn">
+							       			<label></label>
+							       			<button class="btn btn-success btn-sm rounded">Save Changes</button>
+							       		</div>
 						       		</div>
-					       		</div>
-					       		<div class="save-btn">
-					       			<button class="btn btn-success btn-sm rounded">Save Changes</button>
 					       		</div>
 						   </form>
 		     			</div>

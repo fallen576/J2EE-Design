@@ -30,6 +30,10 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+.product > div {
+	display: flex;
+	justify-content: space-between;
+}
 .color {
 	color : black;
 	padding : 8px;
@@ -90,7 +94,6 @@ body {
 .admin .vehicle .table .row > * {
 	display: table-cell;
 }
-.admin .vehicle .save-btn {
-	display: flex;
-	justify-content: flex-end;
+.admin .vehicle .row.save-btn {
+	text-align: right;
 }

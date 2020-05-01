@@ -1,5 +1,6 @@
 package app.dao.vehicle;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,7 +61,7 @@ public class SqlVehicleDao implements VehicleDao {
 
 	@Override
 	public long insert(Vehicle vehicle) {
-		String sql = "INSERT INTO vehicle (color, make, model, category, img_base64) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO vehicle (color, make, model, category, img_base64, cost_per_day) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, vehicle.getColor());
@@ -68,6 +69,7 @@ public class SqlVehicleDao implements VehicleDao {
 			statement.setString(3, vehicle.getModel());
 			statement.setString(4, vehicle.getCategory().name());
 			statement.setString(5, vehicle.getBase64Img());
+			statement.setBigDecimal(6, new BigDecimal(vehicle.getCostPerDay()));
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			rs.next();
@@ -80,7 +82,8 @@ public class SqlVehicleDao implements VehicleDao {
 
 	@Override
 	public void update(Vehicle vehicle) {
-		String sql = "UPDATE vehicle SET color = ?, make = ?, model = ?, category = ?, img_base64 = ? WHERE id = ?";
+		String sql = "UPDATE vehicle SET color = ?, make = ?, model = ?, category = ?, img_base64 = ?, cost_per_day = ? "
+				+ "WHERE id = ?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, vehicle.getColor());
@@ -88,7 +91,8 @@ public class SqlVehicleDao implements VehicleDao {
 			statement.setString(3, vehicle.getModel());
 			statement.setString(4, vehicle.getCategory().name());
 			statement.setString(5, vehicle.getBase64Img());
-			statement.setLong(6, vehicle.getId());
+			statement.setBigDecimal(6, new BigDecimal(vehicle.getCostPerDay()));
+			statement.setLong(7, vehicle.getId());
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,6 +119,7 @@ public class SqlVehicleDao implements VehicleDao {
 		vehicle.setModel(rs.getString("model")); 
 		vehicle.setCategory(VehicleCategory.valueOf(rs.getString("category")));
 		vehicle.setBase64Img(rs.getString("img_base64"));
+		vehicle.setCostPerDay(rs.getBigDecimal("cost_per_day").doubleValue());
 		return vehicle;
 	}
 

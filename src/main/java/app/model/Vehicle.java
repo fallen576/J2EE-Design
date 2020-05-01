@@ -14,6 +14,7 @@ public class Vehicle implements Serializable {
 	private String model;
 	private String color;
 	private String base64Img;
+	private double costPerDay;
 	
 	public Vehicle() {
 	}
@@ -65,9 +66,17 @@ public class Vehicle implements Serializable {
 	public void setBase64Img(String base64Img) {
 		this.base64Img = base64Img;
 	}
+	
+	public double getCostPerDay() {
+		return this.costPerDay;
+	}
+	
+	public void setCostPerDay(double costPerDay) {
+		this.costPerDay = costPerDay;
+	}
 
 	public boolean isValid() {
-		return category != null && !isEmpty(make) && !isEmpty(model) && !isEmpty(color) && !isEmpty(base64Img); 
+		return category != null && !isEmpty(make) && !isEmpty(model) && !isEmpty(color) && !isEmpty(base64Img) && costPerDay > 0; 
 	}
 
 	@Override

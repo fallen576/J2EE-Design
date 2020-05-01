@@ -77,6 +77,7 @@ public class AdminServlet extends HttpServlet {
 		String model = (String) request.getParameter("model");
 		String color = (String) request.getParameter("color");
 		String base64Img = (String) request.getParameter("base64Img");
+		String costPerDay = (String) request.getParameter("costPerDay");
 		
 		Vehicle vehicle = new Vehicle();
 		vehicle.setCategory(VehicleCategory.valueOf(category));
@@ -84,6 +85,7 @@ public class AdminServlet extends HttpServlet {
 		vehicle.setModel(model);
 		vehicle.setColor(color);
 		vehicle.setBase64Img(base64Img);
+		vehicle.setCostPerDay(Double.parseDouble(costPerDay));
 		
 		if (StringUtils.isNotEmpty(id)) {
 			vehicle.setId(Long.parseLong(id));
