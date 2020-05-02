@@ -20,6 +20,20 @@ public class User {
 		this.emailAddress = emailAddress;
 		this.admin = false;
 	}
+	
+	public User(String firstName, String lastName, String password, String emailAddress, boolean isAdmin) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.emailAddress = emailAddress;
+		this.admin = isAdmin;
+	}
+	
+	public User (String firstName, String lastName, String emailAddress) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailAddress = emailAddress;
+	}
 
 	public long getId() {
 		return id;

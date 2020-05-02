@@ -68,6 +68,19 @@ public class AccountServlet extends HttpServlet {
 		} else if (createAccount.equals("logout")) {
 			session.setAttribute("user", null);
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
+		} else if (createAccount.equals("update")) {
+			String email = (String) request.getParameter("email");
+			String firstName = (String) request.getParameter("firstName");
+			String lastName = (String) request.getParameter("lastName");
+			 
+			User userUpdate = new User(firstName, lastName, email);
+			//System.out.println("test " + request.getParameter("id"));
+			userUpdate.setId(Long.parseLong(request.getParameter("id")));
+			
+			userDao.update(userUpdate);
+			
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
 	}
 }
+

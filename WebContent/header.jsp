@@ -27,10 +27,10 @@
 					<a class="nav-link text-dark  rounded" href="/J2EE-Design/index.jsp">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-dark  rounded" href="">Reviews</a>
+					<a class="nav-link text-dark  rounded" href="/J2EE-Design/profile.jsp">Profile</a>
 				</li>
 				<li class="nav-item"> 
-					<a class="nav-link text-dark  rounded" href="">Profile</a> 
+					<a class="nav-link text-dark  rounded" href="/J2EE-Design/reservation.jsp">My Rentals</a> 
 				</li>
 				<% if (isAdmin) {%>
 					<li class="nav-item"> 
@@ -59,8 +59,8 @@
 	 		 </ul>
 	 		 <%} else { %>
 	 		 	<ul class="navbar-nav ml-auto">
-					<li class="nav-item pad">
-						<h6>Hi ${user.firstName}</h6>
+					<li class="nav-item">
+						<p class="nav-link text-dark">Hi, ${user.firstName}</p>
 					</li>
 					<li class="nav-item pad">
 						<form class="form-inline" action="account" method="POST">
