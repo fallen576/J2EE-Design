@@ -63,7 +63,7 @@ public class AccountServlet extends HttpServlet {
 			if (user == null) {
 				response.sendRedirect(request.getContextPath() + "/unauthorized.jsp");
 			} else {
-				response.sendRedirect(request.getContextPath() + "/select.jsp");
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
 			}
 		} else if (createAccount.equals("logout")) {
 			session.setAttribute("user", null);

@@ -180,12 +180,12 @@
 					       	   		 <span>$<%= v.getCostPerDay() %> per day</span>
 				       	   		   </div>
 						             
-						             <span>
-						             	<form method="POST">  
-						             		<input type="hidden" name="carToSelect" value="<%= id%>">
+						             
+						             	<form action="confirm" method="Post">
+						             		<input name="carToSelect" value="<%= id%>" type="hidden"/>
 						             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
 						             	</form>
-						             </span>
+						             
 						       </div>
 			     			</div>
 	     			<%

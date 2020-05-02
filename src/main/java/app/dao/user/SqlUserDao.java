@@ -83,6 +83,7 @@ public class SqlUserDao implements UserDao {
 	private User mapUser(ResultSet rs) throws SQLException {
 		User user = new User(rs.getString("first_name"), rs.getString("last_name"), rs.getString("password"), rs.getString("email_address"), rs.getInt("is_admin") == 1 ? true : false);
 		user.setId(rs.getInt("id"));
+		rs.close();
 		return user;
 	}
 }

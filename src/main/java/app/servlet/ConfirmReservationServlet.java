@@ -48,23 +48,37 @@ public class ConfirmReservationServlet extends HttpServlet {
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); 
 		Object userObject = session.getAttribute("user");
 		if (userObject != null) {
 			String pickupLocation = (String) request.getAttribute("pickupLocation");
 			String dropoffLocation = (String) request.getAttribute("dropoffLocation");
 			String pickupDateString = (String) request.getAttribute("pickup_date");
 			String dropoffDateString = (String) request.getAttribute("dropoff_date");
-			String vehicleCategoryString = (String) request.getAttribute("category");
+			String vehicleCategoryString = (String) session.getAttribute("category");
+			String location = (String) session.getAttribute("location");
+			String pickupTime = (String) session.getAttribute("pickupTime");
+			pickupTime = pickupTime.replaceFirst("T", " ");
+			
+			String dropoffTime = (String) session.getAttribute("dropoffTime");
+			dropoffTime = dropoffTime.replaceFirst("T", " ");
+			
+			long id = (Long) Long.parseLong(request.getParameter("carToSelect"));
+			
+			//System.out.println(dropoffTime + ' ' + pickupTime);
 			
 			VehicleCategory vehicleCategory;
-			Date pickupDate;
+			Date pickupDate; 
 			Date dropoffDate;
-			try {
-				pickupDate = DATE_TIME_FORMATTER.parse(pickupDateString);
-				dropoffDate = DATE_TIME_FORMATTER.parse(dropoffDateString);
+			try {				
+				//pickupDate = DATE_TIME_FORMATTER.parse(pickupDateString);
+				//dropoffDate = DATE_TIME_FORMATTER.parse(dropoffDateString);
+				SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+				pickupDate = format.parse(pickupTime);
+				dropoffDate = format.parse(dropoffTime);
 				vehicleCategory = VehicleCategory.valueOf(vehicleCategoryString);
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				throw new RuntimeException("Unable to parse pickup date, dropoff date, and/or vehicle type");
 			}
 			
@@ -72,7 +86,7 @@ public class ConfirmReservationServlet extends HttpServlet {
 			User user = (User) userObject;
 			reservationService.confirmReservation(user, reservation, vehicleCategory);			
 		}
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+		response.sendRedirect(request.getContextPath() + "/createAccount.jsp");
 	}
 
 }

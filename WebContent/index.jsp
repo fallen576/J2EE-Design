@@ -11,19 +11,9 @@
 			<hr class="my-4">
 			<form action="rental" method="Get">
 				<div class="container">
-				<!-- 
-					<h5>Contact Information</h5>
-			    	<div class="input-group">
-						<div class="input-group-prepend">
-					    	<span class="input-group-text" id="">First and last name</span>
-						</div>
-					  	<input type="text" class="form-control" required>
-					  	<input type="text" class="form-control" required>
-					</div>
-					 -->
 					<div class="form-group padT">
 					    <label for="locations"><h5>Locations</h5></label>
-					    <select class="form-control" id="locations" required>
+					    <select class="form-control" id="locations" name="location" required>
 					      <option>Maryland</option>
 					      <option>Virginia</option>
 					      <option>West Virginia</option>
@@ -33,11 +23,11 @@
 					</div>
 					<div class="form-group padT">
 						<label for="dateTime"><h5>When would you like to pick up your car?</h5></label>
-					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:00" id="dateTime">
+					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:01" id="dateTime" name="pickup">
 					</div>
 					<div class="form-group padT">
 						<label for="dateTime"><h5>When would you like to return your car?</h5></label>
-					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:00" id="dateTime">
+					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:01" id="dateTime" name="dropoff">
 					</div>
 					<div class="form-group padT">
 					    <label for="numDrivers"><h5>How many people will be driving?</h5></label>

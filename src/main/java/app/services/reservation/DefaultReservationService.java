@@ -35,7 +35,7 @@ public class DefaultReservationService implements ReservationService {
 		}
 
 		boolean hasReservation = this.hasReservation(user, reservation);
-		if (!hasReservation) {
+		if (hasReservation) {
 			throw new RuntimeException("User has a reservation in the requested date range");
 		}
 		
