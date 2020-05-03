@@ -46,15 +46,14 @@ public class SearchReservations extends HttpServlet {
 		
 		if (user != null) {
 			List<Reservation> rList = reservationDao.findByUserId(user.getId());
-			String ids = "";
-			int count = 0;
 			
+			/*
 			for (Reservation r : rList) {
 				Long vehicleId = r.getVehicleId();
 				List<Vehicle> vehicle = vehicleDao.findById(vehicleId+"");
 				r.setVehicle(vehicle.get(0));
 			}
-			
+			*/
 			
 			session.setAttribute("reservations", rList);
 			response.sendRedirect(request.getContextPath() + "/reservation.jsp");

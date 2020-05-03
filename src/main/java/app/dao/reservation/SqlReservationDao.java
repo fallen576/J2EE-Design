@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.model.Reservation;
+import app.model.Vehicle;
+import app.model.VehicleCategory;
 
 public class SqlReservationDao implements ReservationDao {
 
@@ -59,15 +61,20 @@ public class SqlReservationDao implements ReservationDao {
 
 	@Override
 	public List<Reservation> findByUserId(long userId) {
-		String sql = "SELECT * FROM reservation INNER JOIN user_reservation"
-				+ " ON reservation.id = user_reservation.reservation_id WHERE user_id = \'" + userId + "\'";
+		//String sql = "SELECT * FROM reservation INNER JOIN user_reservation"
+		//		+ " ON reservation.id = user_reservation.reservation_id WHERE user_id = \'" + userId + "\'";
+		String sql = "SELECT * FROM reservation res INNER JOIN "
+				+ "user_reservation ur ON res.id = ur.reservation_id LEFT JOIN"
+				+ " vehicle v ON res.vehicle_id = v.id WHERE ur.user_id = \'" + userId + "\'";
 		List<Reservation> reservations = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			//statement.setLong(1, userId);
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
-				reservations.add(this.mapReservation(rs));
+				Reservation r = this.mapReservation(rs);
+				r.setVehicle(this.mapVehicle(rs));
+				reservations.add(r);
 			}
 		} catch (SQLException e) {
 			System.out.println("sql " + sql);
@@ -108,6 +115,18 @@ public class SqlReservationDao implements ReservationDao {
 		reservation.setDropoffDate(rs.getDate("dropoff_date"));
 		reservation.setDropoffLocation(rs.getString("dropoff_location"));
 		return reservation;
+	}
+	
+	private Vehicle mapVehicle(ResultSet rs) throws SQLException {
+		Vehicle vehicle = new Vehicle();
+		vehicle.setId(rs.getInt("id"));
+		vehicle.setColor(rs.getString("color"));
+		vehicle.setMake(rs.getString("make"));
+		vehicle.setModel(rs.getString("model")); 
+		vehicle.setCategory(VehicleCategory.valueOf(rs.getString("category")));
+		vehicle.setBase64Img(rs.getString("img_base64"));
+		vehicle.setCostPerDay(rs.getBigDecimal("cost_per_day").doubleValue());
+		return vehicle;
 	}
 	
 }
