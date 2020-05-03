@@ -30,11 +30,14 @@
 					<a class="nav-link text-dark  rounded" href="/J2EE-Design/profile.jsp">Profile</a>
 				</li>
 				<li class="nav-item"> 
-					<a class="nav-link text-dark  rounded" href="/J2EE-Design/reservation.jsp">My Rentals</a> 
+					<form action="reservation" method="Get">
+						<input type="hidden" name="reservations" value="true"/> 
+						<a type="submit" class="nav-link text-dark  rounded"  href="/J2EE-Design/reservation">My Rentals</a> 
+					</form>
 				</li>
 				<% if (isAdmin) {%>
-					<li class="nav-item"> 
-						<a class="nav-link text-dark  rounded" href="/J2EE-Design/admin">Admin</a> 
+					<li class="nav-item">
+						<a class="nav-link text-dark  rounded" href="/J2EE-Design/admin">Admin</a>
 				  	</li>
 			    <%}%>
 			</ul> 

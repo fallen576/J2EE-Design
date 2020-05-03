@@ -11,6 +11,8 @@ public interface VehicleDao {
 
 	List<Vehicle> findWithFilter(String filter);
 	
+	List<Vehicle> findById(String ids);
+	
 	long insert(Vehicle vehicle);
 	
 	void update(Vehicle vehicle);

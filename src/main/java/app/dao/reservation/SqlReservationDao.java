@@ -59,17 +59,18 @@ public class SqlReservationDao implements ReservationDao {
 
 	@Override
 	public List<Reservation> findByUserId(long userId) {
-		String sql = "SELECT * FROM reservation WHERE reservation_id IN "
-				+ "(SELECT reservation_id FROM user_reservation WHERE user_id = ?)";
+		String sql = "SELECT * FROM reservation INNER JOIN user_reservation"
+				+ " ON reservation.id = user_reservation.reservation_id WHERE user_id = \'" + userId + "\'";
 		List<Reservation> reservations = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setLong(1, userId);
+			//statement.setLong(1, userId);
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
 				reservations.add(this.mapReservation(rs));
 			}
 		} catch (SQLException e) {
+			System.out.println("sql " + sql);
 			e.printStackTrace();
 		}
 		return reservations;

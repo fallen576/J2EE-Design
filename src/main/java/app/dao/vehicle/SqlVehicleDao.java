@@ -39,6 +39,26 @@ public class SqlVehicleDao implements VehicleDao {
 	}
 	
 	@Override
+	public List<Vehicle> findById(String ids) {
+		String sql = "SELECT * FROM vehicle WHERE id IN (" + ids + ")";
+		List<Vehicle> vehicles = new ArrayList<>();
+		
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				vehicles.add(this.mapVehicle(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println("sql " + sql);
+			e.printStackTrace();
+		}
+		
+		
+		return vehicles;
+	}
+	
+	@Override
 	public List<Vehicle> findWithFilter(String filter) {
 		String sql = "SELECT * FROM vehicle";
 		
