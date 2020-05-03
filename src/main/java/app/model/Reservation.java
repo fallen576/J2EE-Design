@@ -12,6 +12,7 @@ public class Reservation {
 	private Date pickupDate;
 	private Date dropoffDate;
 	private boolean paid;
+	private Vehicle vehicle;
 
 	public Reservation() {
 	}
@@ -85,6 +86,13 @@ public class Reservation {
 
 	public void setPaid(boolean paid) {
 		this.paid = paid;
+	}
+	public Vehicle getVehicle() {
+		return this.vehicle;
+	}
+	
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
 }
