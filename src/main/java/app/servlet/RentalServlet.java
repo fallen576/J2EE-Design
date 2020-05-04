@@ -48,6 +48,10 @@ public class RentalServlet extends HttpServlet {
 			colors = new String[0];
 			categories = new String[1];
 			categories[0] = request.getParameter("vehicleCategory");
+			
+			session.setAttribute("pickupTime", (String) request.getParameter("pickup"));
+			session.setAttribute("dropoffTime", (String) request.getParameter("dropoff"));
+			session.setAttribute("location", (String) request.getParameter("location"));
 		} else if (filter.equals("panel")) {
 			//the user is refining their search from /Select.jsp
 			colors = request.getParameterValues("carColor");
@@ -58,9 +62,7 @@ public class RentalServlet extends HttpServlet {
 		session.setAttribute("vehicles", vehicles);
 		session.setAttribute("vehicleCategory", categories);
 		session.setAttribute("carColor", colors);
-		session.setAttribute("pickupTime", (String) request.getParameter("pickup"));
-		session.setAttribute("dropoffTime", (String) request.getParameter("dropoff"));
-		session.setAttribute("location", (String) request.getParameter("location"));
+		
 		session.setAttribute("category", (String) request.getParameter("vehicleCategory"));
 		
 		response.sendRedirect(request.getContextPath() + "/select.jsp");

@@ -181,7 +181,7 @@
 				       	   		   </div>
 						             
 						             
-						             	<form action="confirm" method="Post">
+						             	<form action="select" method="Post">
 						             		<input name="carToSelect" value="<%= id%>" type="hidden"/>
 						             		<input type="submit" value="Rent Me!" class="btn btn-success"> 
 						             	</form>

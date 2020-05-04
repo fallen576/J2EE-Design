@@ -50,7 +50,23 @@ public class ConfirmReservationServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); 
 		Object userObject = session.getAttribute("user");
-		if (userObject != null) {
+		String modify = (String) request.getParameter("modify");
+		System.out.println(modify);
+		
+		//user wants to change car
+		if(modify.equals("modifyCar")) {
+			System.out.println("select redirect");
+			response.sendRedirect(request.getContextPath() + "/select.jsp");
+			return;
+		} 
+		//user wants to change itinerary
+		else if(modify.equals("modifyItinerary")) {
+			System.out.println("select redirect");
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			return;
+		}
+		
+		else if (userObject != null) {
 			String pickupLocation = (String) request.getAttribute("pickupLocation");
 			String dropoffLocation = (String) request.getAttribute("dropoffLocation");
 			String pickupDateString = (String) request.getAttribute("pickup_date");
@@ -60,12 +76,15 @@ public class ConfirmReservationServlet extends HttpServlet {
 			String pickupTime = (String) session.getAttribute("pickupTime");
 			pickupTime = pickupTime.replaceFirst("T", " ");
 			
+			System.out.println(pickupLocation);
+			System.out.println(pickupTime);
+			System.out.println(vehicleCategoryString);
 			String dropoffTime = (String) session.getAttribute("dropoffTime");
 			dropoffTime = dropoffTime.replaceFirst("T", " ");
 			
 			long id = (Long) Long.parseLong(request.getParameter("carToSelect"));
 			
-			//System.out.println(dropoffTime + ' ' + pickupTime);
+			System.out.println(dropoffTime + ' ' + pickupTime);
 			
 			VehicleCategory vehicleCategory;
 			Date pickupDate; 
@@ -86,7 +105,7 @@ public class ConfirmReservationServlet extends HttpServlet {
 			User user = (User) userObject;
 			reservationService.confirmReservation(user, reservation, vehicleCategory);			
 		}
-		response.sendRedirect(request.getContextPath() + "/createAccount.jsp");
+		response.sendRedirect(request.getContextPath() + "/checkout.jsp");
 	}
 
 }
