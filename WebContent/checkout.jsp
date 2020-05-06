@@ -50,9 +50,9 @@
 						min="100" max="9999" required>
 				</div>
 			</div>
-			<input name="modify" value="" type="hidden" /> <input
-				name="carToSelect" value=${vehicle.id } type="hidden" /> <input
-				type="submit" value="Confirm Reservation" class="btn btn-success">
+			<input name="modify" value="" type="hidden" /> 
+			<input name="carToSelect" value=${vehicle.id } type="hidden" /> 
+			<input type="submit" value="Confirm Reservation" class="btn btn-success">
 		</form>
 	</div>
 </div>

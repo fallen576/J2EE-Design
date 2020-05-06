@@ -24,7 +24,7 @@ public class SqlReservationDao implements ReservationDao {
 	@Override
 	public long insert(Reservation reservation) {
 		String sql = "INSERT INTO reservation (confirmation_number, vehicle_id, pickup_location, dropoff_location, "
-				+ "pickup_date, dropoff_date) VALUES (?, ?, ?, ?, ?, ?)";
+				+ "pickup_date, dropoff_date, paid) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, reservation.getConfirmationNumber());
@@ -33,6 +33,7 @@ public class SqlReservationDao implements ReservationDao {
 			statement.setString(4, reservation.getDropoffLocation());
 			statement.setDate(5, new Date(reservation.getPickupDate().getTime()));
 			statement.setDate(6, new Date(reservation.getDropoffDate().getTime()));
+			statement.setBoolean(7, true);
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			rs.next();
@@ -95,7 +96,7 @@ public class SqlReservationDao implements ReservationDao {
 			for (int i = 0; i < vehicleIds.size(); i++) {
 				statement.setLong(i + 1, vehicleIds.get(i));
 			}
-			ResultSet rs = statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				reservations.add(this.mapReservation(rs));
 			}

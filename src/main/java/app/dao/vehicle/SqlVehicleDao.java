@@ -28,7 +28,7 @@ public class SqlVehicleDao implements VehicleDao {
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, type.name());
-			ResultSet rs = statement.executeQuery(sql);
+			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				vehicles.add(this.mapVehicle(rs));
 			}

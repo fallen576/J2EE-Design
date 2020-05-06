@@ -52,9 +52,12 @@ public class DefaultReservationService implements ReservationService {
 		reservation.setConfirmationNumber(confirmationNumber);
 		reservation.setVehicleId(availableVehicle.getId());
 		
+		//testing
+		reservation.setPaid(true);
+		
 		long reservationId = reservationDao.insert(reservation);
 		userReservationDao.insert(user.getId(), reservationId);
-		emailService.send(user, reservation);
+		//emailService.send(user, reservation);
 	}
 	
 	private Vehicle findAvailableVehicle(Reservation reservation, VehicleCategory vehicleType) {

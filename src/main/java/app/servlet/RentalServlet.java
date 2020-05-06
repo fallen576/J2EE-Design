@@ -48,7 +48,6 @@ public class RentalServlet extends HttpServlet {
 			colors = new String[0];
 			categories = new String[1];
 			categories[0] = request.getParameter("vehicleCategory");
-			
 			session.setAttribute("pickupTime", (String) request.getParameter("pickup"));
 			session.setAttribute("dropoffTime", (String) request.getParameter("dropoff"));
 			session.setAttribute("location", (String) request.getParameter("location"));

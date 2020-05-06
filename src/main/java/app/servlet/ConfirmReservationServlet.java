@@ -66,7 +66,7 @@ public class ConfirmReservationServlet extends HttpServlet {
 			return;
 		}
 		
-		else if (userObject != null) {
+		if (userObject != null) {
 			String pickupLocation = (String) request.getAttribute("pickupLocation");
 			String dropoffLocation = (String) request.getAttribute("dropoffLocation");
 			String pickupDateString = (String) request.getAttribute("pickup_date");
@@ -101,11 +101,11 @@ public class ConfirmReservationServlet extends HttpServlet {
 				throw new RuntimeException("Unable to parse pickup date, dropoff date, and/or vehicle type");
 			}
 			
-			Reservation reservation = new Reservation(pickupLocation, dropoffLocation, pickupDate, dropoffDate);
+			Reservation reservation = new Reservation(location, location, pickupDate, dropoffDate);
 			User user = (User) userObject;
 			reservationService.confirmReservation(user, reservation, vehicleCategory);			
 		}
-		response.sendRedirect(request.getContextPath() + "/checkout.jsp");
+		response.sendRedirect(request.getContextPath() + "/confirmation.jsp");
 	}
 
 }
