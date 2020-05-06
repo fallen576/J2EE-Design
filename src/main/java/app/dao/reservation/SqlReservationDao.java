@@ -105,7 +105,7 @@ public class SqlReservationDao implements ReservationDao {
 	
 	private Reservation mapReservation(ResultSet rs) throws SQLException {
 		Reservation reservation = new Reservation();
-		reservation.setReservationId(rs.getInt("reservation_id"));
+		reservation.setReservationId(rs.getInt("id"));
 		reservation.setConfirmationNumber(rs.getString("confirmation_number"));
 		reservation.setPickupDate(rs.getDate("pickup_date"));
 		reservation.setPickupLocation(rs.getString("pickup_location"));

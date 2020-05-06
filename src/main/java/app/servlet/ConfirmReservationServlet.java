@@ -56,10 +56,12 @@ public class ConfirmReservationServlet extends HttpServlet {
 		//user wants to change car
 		if(modify.equals("modifyCar")) {
 			response.sendRedirect(request.getContextPath() + "/select.jsp");
+			return;
 		} 
 		//user wants to change itinerary
 		else if(modify.equals("modifyItinerary")) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			return;
 		}
 		
 		if (userObject != null) {
@@ -68,27 +70,33 @@ public class ConfirmReservationServlet extends HttpServlet {
 			String pickupDateString = (String) request.getAttribute("pickup_date");
 			String dropoffDateString = (String) request.getAttribute("dropoff_date");
 			String vehicleCategoryString = (String) session.getAttribute("category");
-			String pickupTimeString = (String) session.getAttribute("pickupTime");
-			pickupTimeString = pickupTimeString.replaceFirst("T", " ");
+			String location = (String) session.getAttribute("location");
+			String pickupTime = (String) session.getAttribute("pickupTime");
+			pickupTime = pickupTime.replaceFirst("T", " ");
 			
-			String dropoffTimeString = (String) session.getAttribute("dropoffTime");
-			dropoffTimeString = dropoffTimeString.replaceFirst("T", " ");
+			String dropoffTime = (String) session.getAttribute("dropoffTime");
+			dropoffTime = dropoffTime.replaceFirst("T", " ");
 			
 			String id = request.getParameter("carToSelect");
+			
 			Vehicle vehicle = vehicleDao.findById(id).get(0);
 			
 			VehicleCategory vehicleCategory;
 			Date pickupDate; 
 			Date dropoffDate;
+			
+			System.out.println(dropoffTime);
+			System.out.println(pickupTime);
 			try {
-				pickupDate = DATE_TIME_FORMATTER.parse(pickupDateString + " " + pickupTimeString);
-				dropoffDate = DATE_TIME_FORMATTER.parse(dropoffDateString + " " + dropoffTimeString);
+				SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+				pickupDate = format.parse(pickupTime);
+				dropoffDate = format.parse(dropoffTime);
 				vehicleCategory = VehicleCategory.valueOf(vehicleCategoryString);
 			} catch (Exception e) {
 				throw new RuntimeException("Unable to parse pickup date, dropoff date, and/or vehicle type");
 			}
 			
-			Reservation reservation = new Reservation(pickupLocation, dropoffLocation, pickupDate, dropoffDate);
+			Reservation reservation = new Reservation(location, location, pickupDate, dropoffDate);
 			User user = (User) userObject;
 			Reservation confirmedReservation = reservationService.confirmReservation(user, reservation, vehicle, vehicleCategory);
 			session.setAttribute("reservation", confirmedReservation);
