@@ -21,6 +21,14 @@ public class User {
 		this.admin = false;
 	}
 	
+	public User(String firstName, String lastName, String password, String emailAddress, String address, String address2, String city, String state, String zip) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.emailAddress = emailAddress;
+		this.admin = false;
+	}
+	
 	public User(String firstName, String lastName, String password, String emailAddress, boolean isAdmin) {
 		this.firstName = firstName;
 		this.lastName = lastName;

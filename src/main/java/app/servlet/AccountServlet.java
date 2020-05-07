@@ -3,6 +3,7 @@ package app.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,11 +49,19 @@ public class AccountServlet extends HttpServlet {
 			String email = (String) request.getParameter("email");
 			
 			User user = new User(firstName, lastName, password, email);
-			session.setAttribute("user", user);
-			userService.insert(firstName, lastName, password, email);
+			User result = userService.insert(firstName, lastName, password, email);
 			
+			if (result == null) {
+				request.setAttribute("exists", true);
+				RequestDispatcher rd = request.getRequestDispatcher("/createAccount.jsp");
+				rd.forward(request, response);
+				//response.sendRedirect(request.getContextPath() + "/createAccount.jsp");
+			}
+			else {
+				request.setAttribute("user", user);
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
+			}
 			
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		} else if (createAccount.equals("login")) {
 			String email = (String) request.getParameter("email");
 			String password = (String) request.getParameter("password");

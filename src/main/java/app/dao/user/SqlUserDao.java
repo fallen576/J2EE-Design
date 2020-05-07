@@ -20,6 +20,9 @@ public class SqlUserDao implements UserDao {
 
 	@Override
 	public long insert(User user) {
+		if (this.checkUserExist(user)) {
+			return -1;
+		}
 		String sql = "INSERT INTO user (first_name, last_name, password, email_address, is_admin) VALUES (?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -79,6 +82,29 @@ public class SqlUserDao implements UserDao {
 		}
 		return null;
 	}	
+	
+	private boolean checkUserExist(User user) {
+		String sql = "SELECT * FROM user where email_address = ?";
+		boolean exists = false;
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1, user.getEmailAddress());
+			ResultSet rs = statement.executeQuery();
+			
+			if (rs.next()) {
+				exists = true;
+			}
+			else {
+				exists = false;
+			}
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return exists;
+	}
 	
 	private User mapUser(ResultSet rs) throws SQLException {
 		User user = new User(rs.getString("first_name"), rs.getString("last_name"), rs.getString("password"), rs.getString("email_address"), rs.getInt("is_admin") == 1 ? true : false);

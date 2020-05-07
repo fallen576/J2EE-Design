@@ -15,6 +15,9 @@ public class DefaultUserService implements UserService {
 	public User insert(String firstName, String lastName, String password, String emailAddress) {
 		User user = new User(firstName, lastName, password, emailAddress);
 		user.setId(userDao.insert(user));
+		if (user.getId() == -1) {
+			user = null;
+		}
 		return user;
 	}
 	
