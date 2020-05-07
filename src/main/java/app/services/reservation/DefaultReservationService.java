@@ -82,6 +82,7 @@ public class DefaultReservationService implements ReservationService {
 		List<Reservation> conflictingVehicleReservations = reservationDao.findByVehicleIds(vehicleIds).stream()
 				.filter(vr -> vr.getDropoffDate().after(reservation.getPickupDate()) || reservation.getDropoffDate().after(vr.getPickupDate()))
 				.collect(Collectors.toList());
+
 		return vehicles.stream()
 				.filter(vehicle -> !conflictingVehicleReservations.stream().anyMatch(vr -> vr.getVehicle().getId() == vehicle.getId()))
 				.findFirst().orElse(null);

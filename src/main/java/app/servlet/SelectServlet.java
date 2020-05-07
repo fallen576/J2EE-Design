@@ -18,14 +18,6 @@ import app.model.Vehicle;
 @WebServlet("/select")
 public class SelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SelectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,10 +25,7 @@ public class SelectServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
-		
-		
 		Long carId = Long.parseLong(request.getParameter("carToSelect"));
-		
 		List<Vehicle> vehicles = (List<Vehicle>) session.getAttribute("vehicles");	
 		Vehicle v = null;
 		for (Vehicle vehicle : vehicles) {
@@ -47,10 +36,7 @@ public class SelectServlet extends HttpServlet {
 		}
 		
 		session.setAttribute("vehicle", v);
-		
-		response.sendRedirect(request.getContextPath() + "/checkout.jsp");
-		
-		
+		response.sendRedirect(request.getContextPath() + "/checkout.jsp");		
 	}
 
 }

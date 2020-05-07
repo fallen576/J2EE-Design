@@ -28,7 +28,7 @@ import app.utils.ServletUtils;
  * Servlet implementation class SearchReservations
  */
 @WebServlet("/reservation")
-public class SearchReservations extends HttpServlet {
+public class SearchReservationsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ReservationService reservationService;
@@ -62,13 +62,12 @@ public class SearchReservations extends HttpServlet {
 		if (user != null) {
 			try {
 				SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd");
-				String pickupLocation = request.getParameter("pickupLocation");
-				String dropoffLocation = request.getParameter("dropoffLocation");
+				String location = request.getParameter("location");
 				Date pickupDate = format.parse(request.getParameter("pickupDate"));
 				Date dropoffDate = format.parse(request.getParameter("dropoffDate"));
 				long id = Long.parseLong(request.getParameter("id"));				
 				
-				Reservation res = new Reservation(pickupLocation, dropoffLocation, pickupDate, dropoffDate);
+				Reservation res = new Reservation(location, pickupDate, dropoffDate);
 				res.setReservationId(id);
 				reservationService.update(res);
 				session.setAttribute("reservations", reservationService.findUserReservations(user));

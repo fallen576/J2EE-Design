@@ -23,17 +23,17 @@ public class SqlReservationDao implements ReservationDao {
 
 	@Override
 	public long insert(Reservation reservation) {
-		String sql = "INSERT INTO reservation (confirmation_number, vehicle_id, pickup_location, dropoff_location, "
-				+ "pickup_date, dropoff_date, paid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		System.out.println("reservation location: " + reservation.getLocation());
+		String sql = "INSERT INTO reservation (confirmation_number, vehicle_id, location, "
+				+ "pickup_date, dropoff_date, paid) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			statement.setString(1, reservation.getConfirmationNumber());
 			statement.setLong(2, reservation.getVehicle().getId());
-			statement.setString(3, reservation.getPickupLocation());
-			statement.setString(4, reservation.getDropoffLocation());
-			statement.setDate(5, new Date(reservation.getPickupDate().getTime()));
-			statement.setDate(6, new Date(reservation.getDropoffDate().getTime()));
-			statement.setBoolean(7, true);
+			statement.setString(3, reservation.getLocation());
+			statement.setDate(4, new Date(reservation.getPickupDate().getTime()));
+			statement.setDate(5, new Date(reservation.getDropoffDate().getTime()));
+			statement.setBoolean(6, true);
 			statement.executeUpdate();
 			ResultSet rs = statement.getGeneratedKeys();
 			rs.next();
@@ -63,8 +63,8 @@ public class SqlReservationDao implements ReservationDao {
 	@Override
 	public List<Reservation> findByUserId(long userId) {
 		String sql = "SELECT * FROM reservation res INNER JOIN "
-				+ "user_reservation ur ON res.id = ur.reservation_id LEFT JOIN"
-				+ " vehicle v ON res.vehicle_id = v.id WHERE ur.user_id = ?";
+				+ "user_reservation ur ON res.id = ur.reservation_id LEFT JOIN "
+				+ "vehicle v ON res.vehicle_id = v.id WHERE ur.user_id = ?";
 		List<Reservation> reservations = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -86,7 +86,8 @@ public class SqlReservationDao implements ReservationDao {
 		StringBuilder params = new StringBuilder();
 		vehicleIds.forEach(id -> params.append("?,"));
 		params.deleteCharAt(params.length() - 1);
-		String sql = "SELECT * FROM reservation WHERE vehicle_id in (" + params.toString() + ")";
+		String sql = "SELECT r.*, v.* FROM reservation r "
+				+ "LEFT JOIN vehicle v ON r.vehicle_id = v.id WHERE vehicle_id in (" + params.toString() + ")";
 		List<Reservation> reservations = new ArrayList<>();
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
@@ -95,7 +96,9 @@ public class SqlReservationDao implements ReservationDao {
 			}
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
-				reservations.add(this.mapReservation(rs));
+				Reservation reservation = this.mapReservation(rs);
+				reservation.setVehicle(this.mapVehicle(rs));
+				reservations.add(reservation);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,14 +108,13 @@ public class SqlReservationDao implements ReservationDao {
 	
 	@Override
 	public void update(Reservation reservation) {
-		String sql = "UPDATE reservation SET pickup_location = ?, dropoff_location = ?, pickup_date = ?, dropoff_date = ? WHERE id = ?";
+		String sql = "UPDATE reservation SET location = ?, pickup_date = ?, dropoff_date = ? WHERE id = ?";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, reservation.getPickupLocation());
-			statement.setString(2, reservation.getDropoffLocation());
-			statement.setDate(3, new Date(reservation.getPickupDate().getTime()));
-			statement.setDate(4, new Date(reservation.getDropoffDate().getTime()));
-			statement.setLong(5, reservation.getReservationId());
+			statement.setString(1, reservation.getLocation());
+			statement.setDate(2, new Date(reservation.getPickupDate().getTime()));
+			statement.setDate(3, new Date(reservation.getDropoffDate().getTime()));
+			statement.setLong(4, reservation.getReservationId());
 			statement.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -124,10 +126,9 @@ public class SqlReservationDao implements ReservationDao {
 		Reservation reservation = new Reservation();
 		reservation.setReservationId(rs.getInt("id"));
 		reservation.setConfirmationNumber(rs.getString("confirmation_number"));
+		reservation.setLocation(rs.getString("location"));
 		reservation.setPickupDate(rs.getDate("pickup_date"));
-		reservation.setPickupLocation(rs.getString("pickup_location"));
 		reservation.setDropoffDate(rs.getDate("dropoff_date"));
-		reservation.setDropoffLocation(rs.getString("dropoff_location"));
 		return reservation;
 	}
 	

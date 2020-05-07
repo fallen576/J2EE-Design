@@ -110,7 +110,7 @@
 							  <span class="form-check-label">
 							   Blue
 							  </span>
-							</label> <!-- form-check.// -->
+							</label>
 							<label class="form-check">
 							  <% if (carColor != null && Arrays.asList(carColor).contains("Silver")) {%>
 							  <input class="form-check-input" name="carColor"  type="checkbox" value="Silver" checked>

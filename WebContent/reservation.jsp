@@ -19,8 +19,7 @@
      					Vehicle v = r.getVehicle();
      					VehicleCategory category = v.getCategory();
      					String confirmationNumber = r.getConfirmationNumber();
-     					String pickupLocation = r.getPickupLocation();
-     					String dropoffLocation = r.getDropoffLocation();
+     					String location = r.getLocation();
      					Date pickupDate = r.getPickupDate();
      					Date dropoffDate = r.getDropoffDate();
      					long id = r.getReservationId();
@@ -43,21 +42,11 @@
 									 	<div class="row">
 					      					<label for="pickupLocation">Pickup Location:</label>
 					      					<select class="form-control" name="pickupLocation">
-						      					<option value="Maryland" <%= pickupLocation.equals("Maryland") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Maryland</option>
-										      	<option value="Virginia" <%= pickupLocation.equals("Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Virginia</option>
-										  	    <option value="West Virginia" <%= pickupLocation.equals("West Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>West Virginia</option>
-											    <option value="Pennsylvania" <%= pickupLocation.equals("Pennsylvania") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Pennsylvania</option>
-											   	<option value="Delaware" <%= pickupLocation.equals("Delaware") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Delaware</option>
-									    	</select>
-					    				</div>
-					    				<div class="row">
-					      					<label for="dropoffLocation">Drop off Location:</label>
-					      					<select class="form-control" name="dropoffLocation">
-						      					<option value="Maryland" <%= dropoffLocation.equals("Maryland") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Maryland</option>
-										      	<option value="Virginia" <%= dropoffLocation.equals("Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Virginia</option>
-										  	    <option value="West Virginia" <%= dropoffLocation.equals("West Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>West Virginia</option>
-											    <option value="Pennsylvania" <%= dropoffLocation.equals("Pennsylvania") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Pennsylvania</option>
-											   	<option value="Delaware" <%= dropoffLocation.equals("Delaware") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Delaware</option>
+						      					<option value="Maryland" <%= location.equals("Maryland") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Maryland</option>
+										      	<option value="Virginia" <%= location.equals("Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Virginia</option>
+										  	    <option value="West Virginia" <%= location.equals("West Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>West Virginia</option>
+											    <option value="Pennsylvania" <%= location.equals("Pennsylvania") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Pennsylvania</option>
+											   	<option value="Delaware" <%= location.equals("Delaware") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Delaware</option>
 									    	</select>
 					    				</div>
 						       		</div>

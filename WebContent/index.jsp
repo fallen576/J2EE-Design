@@ -27,7 +27,7 @@
 					</div>
 					<div class="form-group padT">
 						<label for="dateTime"><h5>When would you like to return your car?</h5></label>
-					    <input class="form-control" type="datetime-local" value="2020-01-01T09:00:01" id="dateTime" name="dropoff">
+					    <input class="form-control" type="datetime-local" value="2020-01-02T09:00:01" id="dateTime" name="dropoff">
 					</div>
 					<div class="form-group padT">
 					    <label for="numDrivers"><h5>How many people will be driving?</h5></label>

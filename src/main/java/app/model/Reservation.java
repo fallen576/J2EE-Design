@@ -1,13 +1,15 @@
 package app.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Reservation {
+public class Reservation implements Serializable {
 
+	private static final long serialVersionUID = 178878282290705807L;
+	
 	private long reservationId;
 	private String confirmationNumber;
-	private String pickupLocation;
-	private String dropoffLocation;
+	private String location;
 	private Date pickupDate;
 	private Date dropoffDate;
 	private boolean paid;
@@ -16,9 +18,8 @@ public class Reservation {
 	public Reservation() {
 	}
 
-	public Reservation(String pickupLocation, String dropoffLocation, Date pickupDate, Date dropoffDate) {
-		this.pickupLocation = pickupLocation;
-		this.dropoffLocation = dropoffLocation;
+	public Reservation(String location, Date pickupDate, Date dropoffDate) {
+		this.location = location;
 		this.pickupDate = pickupDate;
 		this.dropoffDate = dropoffDate;
 	}
@@ -39,20 +40,12 @@ public class Reservation {
 		this.confirmationNumber = confirmationNumber;
 	}
 
-	public String getPickupLocation() {
-		return pickupLocation;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setPickupLocation(String pickupLocation) {
-		this.pickupLocation = pickupLocation;
-	}
-
-	public String getDropoffLocation() {
-		return dropoffLocation;
-	}
-
-	public void setDropoffLocation(String dropoffLocation) {
-		this.dropoffLocation = dropoffLocation;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public Date getPickupDate() {

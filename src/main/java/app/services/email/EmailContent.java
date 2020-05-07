@@ -1,7 +1,8 @@
 package app.services.email;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -13,7 +14,7 @@ import app.model.Vehicle;
 public class EmailContent {
 	
 	private static final DecimalFormat CURRENCY_FORMATTER = new DecimalFormat("$#,###.00");
-	private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
+	private static final DateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd MMM yyyy hh:mm");
 
 	public static String generate(User user, Reservation reservation) {
 		StringBuilder sb = new StringBuilder(Element.createHead());
@@ -36,20 +37,16 @@ public class EmailContent {
 				Element.create("div",
 						Element.createImg(vehicle.getBase64Img(), vehicle.getMake() + " " + vehicle.getModel()) +
 						Element.create("div",
-								Element.create("span", "Pickup Location", "bold table-cell") +
-								Element.create("span", reservation.getPickupLocation(), "table-cell"),
-								"table-row") +
-						Element.create("div",
-								Element.create("span", "Dropoff Location", "bold table-cell") +
-								Element.create("span", reservation.getDropoffLocation(), "table-cell"),
+								Element.create("span", "Location", "bold table-cell") +
+								Element.create("span", reservation.getLocation(), "table-cell"),
 								"table-row") +
 						Element.create("div",
 								Element.create("span", "Pickup Date", "bold table-cell") +
-								Element.create("span", DATE_TIME_FORMATTER.format(reservation.getPickupDate().toInstant()), "table-cell"),
+								Element.create("span", DATE_TIME_FORMATTER.format(reservation.getPickupDate()), "table-cell"),
 								"table-row") +
 						Element.create("div",
 								Element.create("span", "Dropoff Date", "bold table-cell") +
-								Element.create("span", DATE_TIME_FORMATTER.format(reservation.getDropoffDate().toInstant()), "table-cell"),
+								Element.create("span", DATE_TIME_FORMATTER.format(reservation.getDropoffDate()), "table-cell"),
 								"table-row") +
 						Element.create("div",
 								Element.create("span", "Total Cost", "bold table-cell") +
