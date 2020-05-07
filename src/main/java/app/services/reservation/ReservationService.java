@@ -15,4 +15,6 @@ public interface ReservationService {
 	
 	void update(Reservation reservation);
 
+	void cancel(Long reservationId);
+
 }

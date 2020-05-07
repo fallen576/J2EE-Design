@@ -16,4 +16,6 @@ public interface ReservationDao {
 	
 	void update(Reservation reservation);
 
+	void cancel(Long reservationId);
+
 }

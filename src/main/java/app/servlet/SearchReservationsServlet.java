@@ -32,55 +32,62 @@ public class SearchReservationsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ReservationService reservationService;
-       
+
 	public void init() throws ServletException {
 		Connection connection = ServletUtils.connectToSqlDatabase();
-		
+
 		ReservationDao reservationDao = new SqlReservationDao(connection);
 		UserReservationDao userReservationDao = new SqlUserReservationDao(connection);
 		VehicleDao vehicleDao = new SqlVehicleDao(connection);
 		reservationService = new DefaultReservationService(reservationDao, userReservationDao, vehicleDao);
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		
+
 		if (user != null) {
 			session.setAttribute("reservations", reservationService.findUserReservations(user));
 			response.sendRedirect(request.getContextPath() + "/reservation.jsp");
-		}
-		else {
+		} else {
 			response.sendRedirect(request.getContextPath() + "/authorization.jsp");
-		}	
+		}
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		
+
 		if (user != null) {
 			try {
 				SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd");
 				String location = request.getParameter("location");
 				Date pickupDate = format.parse(request.getParameter("pickupDate"));
 				Date dropoffDate = format.parse(request.getParameter("dropoffDate"));
-				long id = Long.parseLong(request.getParameter("id"));				
+				long id = Long.parseLong(request.getParameter("id"));
+				String cancel = (String) (request.getParameter("cancel"));
+				System.out.println("id " + id);
+				System.out.println("cancel id " + cancel);
+				if (cancel != null) {
+					System.out.println(id);
+					reservationService.cancel(id);
+				} else {
+					Reservation res = new Reservation(location, pickupDate, dropoffDate);
+					res.setReservationId(id);
+					reservationService.update(res);
+				}
 				
-				Reservation res = new Reservation(location, pickupDate, dropoffDate);
-				res.setReservationId(id);
-				reservationService.update(res);
 				session.setAttribute("reservations", reservationService.findUserReservations(user));
 				response.sendRedirect(request.getContextPath() + "/reservation.jsp");
-				
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			
-		}
-		else {
+
+		} else {
 			response.sendRedirect(request.getContextPath() + "/authorization.jsp");
-		}	
+		}
 	}
 }

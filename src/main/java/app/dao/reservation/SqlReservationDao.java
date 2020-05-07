@@ -122,6 +122,19 @@ public class SqlReservationDao implements ReservationDao {
 		}
 	}
 	
+	@Override
+	public void cancel(Long reservationId) {
+		String sql = "DELETE from reservation WHERE id = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setLong(1, reservationId);
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private Reservation mapReservation(ResultSet rs) throws SQLException {
 		Reservation reservation = new Reservation();
 		reservation.setReservationId(rs.getInt("id"));
@@ -143,5 +156,7 @@ public class SqlReservationDao implements ReservationDao {
 		vehicle.setCostPerDay(rs.getBigDecimal("cost_per_day").doubleValue());
 		return vehicle;
 	}
+
+	
 	
 }

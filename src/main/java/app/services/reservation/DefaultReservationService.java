@@ -76,6 +76,11 @@ public class DefaultReservationService implements ReservationService {
 		reservationDao.update(reservation);
 	}
 	
+	@Override
+	public void cancel(Long reservationId) {
+		reservationDao.cancel(reservationId);
+	}
+	
 	private Vehicle findAvailableVehicle(Reservation reservation, VehicleCategory vehicleType) {
 		List<Vehicle> vehicles = vehicleDao.findByType(vehicleType);
 		List<Long> vehicleIds = vehicles.stream().map(v -> v.getId()).collect(Collectors.toList());
