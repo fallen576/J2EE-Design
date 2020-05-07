@@ -40,8 +40,8 @@
 					      					<input type="text" class="form-control" name="confirmationNumber" value="<%= confirmationNumber %>" disabled>
 							       		</div>
 									 	<div class="row">
-					      					<label for="pickupLocation">Pickup Location:</label>
-					      					<select class="form-control" name="pickupLocation">
+					      					<label for="pickupLocation">Location:</label>
+					      					<select class="form-control" name="location">
 						      					<option value="Maryland" <%= location.equals("Maryland") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Maryland</option>
 										      	<option value="Virginia" <%= location.equals("Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Virginia</option>
 										  	    <option value="West Virginia" <%= location.equals("West Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>West Virginia</option>
