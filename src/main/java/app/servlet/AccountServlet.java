@@ -70,7 +70,10 @@ public class AccountServlet extends HttpServlet {
 			session.setAttribute("user", user);
 						
 			if (user == null) {
-				response.sendRedirect(request.getContextPath() + "/unauthorized.jsp");
+				request.setAttribute("invalid", true);
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+				//response.sendRedirect(request.getContextPath() + "/unauthorized.jsp");
 			} else {
 				response.sendRedirect(request.getContextPath() + "/index.jsp");
 			}
