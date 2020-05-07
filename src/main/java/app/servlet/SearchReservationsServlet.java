@@ -68,8 +68,7 @@ public class SearchReservationsServlet extends HttpServlet {
 				Date dropoffDate = format.parse(request.getParameter("dropoffDate"));
 				long id = Long.parseLong(request.getParameter("id"));
 				String cancel = (String) (request.getParameter("cancel"));
-				System.out.println("id " + id);
-				System.out.println("cancel id " + cancel);
+
 				if (cancel != null) {
 					System.out.println(id);
 					reservationService.cancel(id);
