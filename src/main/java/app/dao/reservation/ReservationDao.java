@@ -13,5 +13,7 @@ public interface ReservationDao {
 	List<Reservation> findByUserId(long userId);
 
 	List<Reservation> findByVehicleIds(List<Long> vehicleIds);
+	
+	void update(Reservation reservation);
 
 }

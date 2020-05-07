@@ -12,5 +12,7 @@ public interface ReservationService {
 	Reservation confirmReservation(User user, Reservation reservation, Vehicle possibleVehicle, VehicleCategory category);
 	
 	List<Reservation> findUserReservations(User user);
+	
+	void update(Reservation reservation);
 
 }

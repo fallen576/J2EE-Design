@@ -23,6 +23,7 @@
      					String dropoffLocation = r.getDropoffLocation();
      					Date pickupDate = r.getPickupDate();
      					Date dropoffDate = r.getDropoffDate();
+     					long id = r.getReservationId();
      					
      					if (pickupDate.after(new Date())) {
      						readOnly = true;
@@ -41,11 +42,23 @@
 							       		</div>
 									 	<div class="row">
 					      					<label for="pickupLocation">Pickup Location:</label>
-					      					<input type="text" class="form-control" name="pickupLocation" value="<%= pickupLocation %>" <%= !readOnly ? "disabled" : "" %>>
+					      					<select class="form-control" name="pickupLocation">
+						      					<option value="Maryland" <%= pickupLocation.equals("Maryland") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Maryland</option>
+										      	<option value="Virginia" <%= pickupLocation.equals("Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Virginia</option>
+										  	    <option value="West Virginia" <%= pickupLocation.equals("West Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>West Virginia</option>
+											    <option value="Pennsylvania" <%= pickupLocation.equals("Pennsylvania") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Pennsylvania</option>
+											   	<option value="Delaware" <%= pickupLocation.equals("Delaware") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Delaware</option>
+									    	</select>
 					    				</div>
-									 	<div class="row">
+					    				<div class="row">
 					      					<label for="dropoffLocation">Drop off Location:</label>
-					      					<input type="text" class="form-control" name="model" value="<%= dropoffLocation %>" <%= !readOnly ? "disabled" : "" %>>
+					      					<select class="form-control" name="dropoffLocation">
+						      					<option value="Maryland" <%= dropoffLocation.equals("Maryland") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Maryland</option>
+										      	<option value="Virginia" <%= dropoffLocation.equals("Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Virginia</option>
+										  	    <option value="West Virginia" <%= dropoffLocation.equals("West Virginia") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>West Virginia</option>
+											    <option value="Pennsylvania" <%= dropoffLocation.equals("Pennsylvania") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Pennsylvania</option>
+											   	<option value="Delaware" <%= dropoffLocation.equals("Delaware") ? "selected" : "" %> <%= !readOnly ? "disabled" : "" %>>Delaware</option>
+									    	</select>
 					    				</div>
 						       		</div>
 						       		<div class="table">
@@ -71,7 +84,7 @@
 					    				</div>
 					    				<% if (readOnly) { %>
 							       		<div class="row save-btn">
-							       			<input type="hidden" name="reservations" value="update">
+							       			<input type="hidden" name="id" value="<%= id%>">
 							       			<button class="btn btn-success btn-sm rounded">Update Changes</button>
 							       		</div>
 							       		<%} %>

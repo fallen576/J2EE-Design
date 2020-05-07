@@ -2,6 +2,8 @@ package app.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import app.dao.user.reservation.SqlUserReservationDao;
 import app.dao.user.reservation.UserReservationDao;
 import app.dao.vehicle.SqlVehicleDao;
 import app.dao.vehicle.VehicleDao;
+import app.model.Reservation;
 import app.model.User;
 import app.services.reservation.DefaultReservationService;
 import app.services.reservation.ReservationService;
@@ -49,8 +52,36 @@ public class SearchReservations extends HttpServlet {
 		}
 		else {
 			response.sendRedirect(request.getContextPath() + "/authorization.jsp");
+		}	
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if (user != null) {
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd");
+				String pickupLocation = request.getParameter("pickupLocation");
+				String dropoffLocation = request.getParameter("dropoffLocation");
+				Date pickupDate = format.parse(request.getParameter("pickupDate"));
+				Date dropoffDate = format.parse(request.getParameter("dropoffDate"));
+				long id = Long.parseLong(request.getParameter("id"));				
+				
+				Reservation res = new Reservation(pickupLocation, dropoffLocation, pickupDate, dropoffDate);
+				res.setReservationId(id);
+				reservationService.update(res);
+				session.setAttribute("reservations", reservationService.findUserReservations(user));
+				response.sendRedirect(request.getContextPath() + "/reservation.jsp");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
 		}
-		
-		
+		else {
+			response.sendRedirect(request.getContextPath() + "/authorization.jsp");
+		}	
 	}
 }

@@ -103,6 +103,23 @@ public class SqlReservationDao implements ReservationDao {
 		return reservations;
 	}
 	
+	@Override
+	public void update(Reservation reservation) {
+		String sql = "UPDATE reservation SET pickup_location = ?, dropoff_location = ?, pickup_date = ?, dropoff_date = ? WHERE id = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, reservation.getPickupLocation());
+			statement.setString(2, reservation.getDropoffLocation());
+			statement.setDate(3, new Date(reservation.getPickupDate().getTime()));
+			statement.setDate(4, new Date(reservation.getDropoffDate().getTime()));
+			statement.setLong(5, reservation.getReservationId());
+			statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private Reservation mapReservation(ResultSet rs) throws SQLException {
 		Reservation reservation = new Reservation();
 		reservation.setReservationId(rs.getInt("id"));
