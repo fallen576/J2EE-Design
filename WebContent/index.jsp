@@ -1,7 +1,18 @@
 	 <jsp:include page="/header.jsp"/>
  <%
  	session.setAttribute("carColor", null);
+ 
+	boolean invalid = false;
+	if (request.getAttribute("invalid") != null) {
+		invalid = true;
+	}
  %>
+ 	<%if (invalid) { %>
+	<div class="container padding">
+		<div class="alert alert-danger">Invalid login credentials</div>
+	</div>
+	<%} %>
+	
 	<div class="container padding">  
 		<!-- <h1 class="text-center color padding">Our Wheels</h1>-->
 		
