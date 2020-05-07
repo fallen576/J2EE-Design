@@ -1,5 +1,6 @@
 package app.dao.vehicle;
 
+import java.util.Date;
 import java.util.List;
 
 import app.model.Vehicle;
@@ -10,6 +11,8 @@ public interface VehicleDao {
 	List<Vehicle> findByType(VehicleCategory type);
 
 	List<Vehicle> findWithFilter(String filter);
+	
+	List<Vehicle> findWithFilter(String filter, String beginDate, String endDate);
 	
 	List<Vehicle> findById(String ids);
 	

@@ -2,6 +2,9 @@ package app.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -43,6 +46,10 @@ public class RentalServlet extends HttpServlet {
 		String filter = (String) request.getParameter("filter");
 		String[] categories = null;
 		String[] colors = null;
+		String pickup = "";
+		String dropoff = "";
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
+		
 		//the user is coming from the index page, only car type matters
 		if (filter.equals("index")) {
 			colors = new String[0];
@@ -51,13 +58,22 @@ public class RentalServlet extends HttpServlet {
 			session.setAttribute("pickupTime", (String) request.getParameter("pickup"));
 			session.setAttribute("dropoffTime", (String) request.getParameter("dropoff"));
 			session.setAttribute("location", (String) request.getParameter("location"));
+			pickup = request.getParameter("pickup").split("T")[0];
+			dropoff = request.getParameter("dropoff").split("T")[0];
+			session.setAttribute("beginDate", pickup);
+			session.setAttribute("endDate", dropoff);
+		
 		} else if (filter.equals("panel")) {
 			//the user is refining their search from /Select.jsp
 			colors = request.getParameterValues("carColor");
 			categories = request.getParameterValues("vehicleCategory");
+			
+			pickup = (String) session.getAttribute("beginDate");
+			dropoff = (String) session.getAttribute("endDate");
 		}
-
-		List<Vehicle> vehicles = vehicleService.filterVehicles(categories, colors);
+		
+		//List<Vehicle> vehicles = vehicleService.filterVehicles(categories, colors);
+		List<Vehicle> vehicles = vehicleService.filterVehicles(categories, colors, pickup, dropoff);
 		session.setAttribute("vehicles", vehicles);
 		session.setAttribute("vehicleCategory", categories);
 		session.setAttribute("carColor", colors);

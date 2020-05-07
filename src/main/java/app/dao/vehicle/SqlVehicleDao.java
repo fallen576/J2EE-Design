@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import app.model.Vehicle;
@@ -77,6 +78,30 @@ public class SqlVehicleDao implements VehicleDao {
 			e.printStackTrace();
 		}
 		return vehicles;
+	}
+	
+	public List<Vehicle> findWithFilter(String filter, String beginDate, String endDate) {
+		List<Vehicle> vehicles = this.findWithFilter(filter);
+		List<Vehicle> finalVehicles = new ArrayList<>();
+		
+		for (Vehicle v : vehicles) {
+			//end comes before begin
+			String sql = "SELECT * FROM reservation WHERE vehicle_id = ? AND (pickup_date <= ? AND dropoff_date >= ?)";
+			try {
+				PreparedStatement statement = connection.prepareStatement(sql);
+				statement.setLong(1, v.getId());
+				statement.setString(2, beginDate);
+				statement.setString(3, endDate);
+				ResultSet rs = statement.executeQuery();
+				if (!rs.next()) {
+					finalVehicles.add(v);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
+		return finalVehicles;
 	}
 
 	@Override
