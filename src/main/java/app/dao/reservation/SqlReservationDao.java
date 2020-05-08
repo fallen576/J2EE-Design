@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,10 +112,13 @@ public class SqlReservationDao implements ReservationDao {
 	public void update(Reservation reservation) {
 		String sql = "UPDATE reservation SET location = ?, pickup_date = ?, dropoff_date = ? WHERE id = ?";
 		try {
+			LocalDate pickup = reservation.getPickupDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate dropoff = reservation.getDropoffDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, reservation.getLocation());
-			statement.setDate(2, new Date(reservation.getPickupDate().getTime()));
-			statement.setDate(3, new Date(reservation.getDropoffDate().getTime()));
+			statement.setString(2, pickup.toString());
+			statement.setString(3, dropoff.toString());
 			statement.setLong(4, reservation.getReservationId());
 			statement.executeUpdate();
 			

@@ -75,10 +75,9 @@
 							       		<div class="row save-btn">
 							       			<input type="hidden" name="id" value="<%= id%>">
 							       			<button class="btn btn-success btn-sm rounded">Update Changes</button>
-							       		</div>
-							       		<div class="row save-btn">
-							       			<input class="btn btn-success btn-sm rounded" type="submit" name="cancel" value="Cancel Reservation">
-							       			
+							       			<span class="save-btn">
+							       				<input class="btn btn-danger btn-sm rounded" type="submit" name="cancel" value="Cancel Reservation">
+							       			</span>
 							       		</div>
 							       		<%} %>
 						       		</div>
@@ -88,7 +87,7 @@
     				<%
      				}
      			}
-     			%>
+     			%> 
      		</div>
  		  </div>
 	  </div>
