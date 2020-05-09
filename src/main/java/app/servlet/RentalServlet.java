@@ -2,9 +2,7 @@ package app.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import app.dao.vehicle.SqlVehicleDao;
-import app.dao.vehicle.VehicleDao;
 import app.model.Vehicle;
 import app.services.vehicle.DefaultVehicleService;
 import app.services.vehicle.VehicleService;
@@ -28,19 +25,15 @@ import app.utils.ServletUtils;
 public class RentalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private Connection connection;
 	private VehicleService vehicleService;
-    
-    public void init() throws ServletException {
-		Connection connection = ServletUtils.connectToSqlDatabase();
-		
-		VehicleDao vehicleDao = new SqlVehicleDao(connection);
-		vehicleService = new DefaultVehicleService(vehicleDao);
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.initializeVehicleService();
+		
 		HttpSession session = request.getSession();
 
 		String filter = (String) request.getParameter("filter");
@@ -48,7 +41,6 @@ public class RentalServlet extends HttpServlet {
 		String[] colors = null;
 		String pickup = "";
 		String dropoff = "";
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-dd");
 		
 		//the user is coming from the index page, only car type matters
 		if (filter.equals("index")) {
@@ -80,6 +72,7 @@ public class RentalServlet extends HttpServlet {
 		
 		session.setAttribute("category", (String) request.getParameter("vehicleCategory"));
 		
+		this.closeConnection();
 		response.sendRedirect(request.getContextPath() + "/select.jsp");
 	}
 
@@ -88,6 +81,17 @@ public class RentalServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);		
+	}
+	
+	private void initializeVehicleService() {
+		this.connection = ServletUtils.connectToSqlDatabase();
+		this.vehicleService = new DefaultVehicleService(new SqlVehicleDao(connection));
+	}
+	
+	private void closeConnection() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {}
 	}
 
 }

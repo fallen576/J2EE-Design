@@ -1,6 +1,5 @@
 package app.services.vehicle;
 
-import java.util.Date;
 import java.util.List;
 
 import app.dao.vehicle.VehicleDao;
@@ -95,6 +94,11 @@ public class DefaultVehicleService implements VehicleService {
 	@Override
 	public void delete(long vehicleId) {
 		vehicleDao.delete(vehicleId);
+	}
+	
+	@Override
+	public List<Vehicle> findByIds(String vehicleId) {
+		return vehicleDao.findById(vehicleId);
 	}
 
 }

@@ -1,7 +1,6 @@
 package app.html;
 
 import app.utils.FileUtils;
-import app.utils.StringUtils;
 
 public class Element {
 
@@ -16,6 +15,10 @@ public class Element {
 				.append("</" + el + ">")
 				.toString();
 	}
+	
+	public static String createNewLine() {
+		return "<br />";
+	}
 
 	public static String createHead() {
 		String css = FileUtils.getFileContents("email_style.css");
@@ -28,21 +31,13 @@ public class Element {
 	}
 	
 	public static String createLink(String href, String value, String ...classNames) {
-		return new StringBuilder("<a ")
-				.append("href=\"")
+		return new StringBuilder("<a href=\"")
 				.append(href)
+				.append("\" class=\"")
 				.append(String.join(" ", classNames))
 				.append("\">")
 				.append(value)
 				.append("</a>")
-				.toString();
-	}
-	
-	public static String createImg(String base64Img, String alt) {
-		return new StringBuilder("<img src=\"data:image/png;base64," + base64Img)
-				.append(" ")
-				.append(StringUtils.isEmpty(alt) ? "" : alt)
-				.append(">")
 				.toString();
 	}
 	

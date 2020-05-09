@@ -2,6 +2,7 @@ package app.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,7 +21,6 @@ import app.model.VehicleCategory;
 import app.services.admin.AdminService;
 import app.services.admin.DefaultAdminService;
 import app.services.vehicle.DefaultVehicleService;
-import app.services.vehicle.VehicleService;
 import app.utils.ServletUtils;
 import app.utils.StringUtils;
 
@@ -29,21 +29,17 @@ public class AdminServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Connection connection;
 	private AdminService adminService;
 	
-	public void init() throws ServletException {
-		Connection connection = ServletUtils.connectToSqlDatabase();
-		VehicleDao vehicleDao = new SqlVehicleDao(connection);
-		ReservationDao reservationDao = new SqlReservationDao(connection);
-		
-		VehicleService vehicleService = new DefaultVehicleService(vehicleDao);
-		adminService = new DefaultAdminService(vehicleService, reservationDao);
-	}
-	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.initializeAdminService();
+		
 		HttpSession session = request.getSession();
 		List<Vehicle> allVehicles = adminService.getAllVehicles();
 		session.setAttribute("allVehicles", allVehicles);
+		
+		this.closeConnection();
 		response.sendRedirect(request.getContextPath() + "/admin.jsp");
 	}
 	
@@ -52,6 +48,8 @@ public class AdminServlet extends HttpServlet {
 	 * @throws IOException 
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.initializeAdminService();
+		
 		HttpSession session = request.getSession();
 		String method = request.getParameter("method");
 		Vehicle vehicle = this.getVehicleFromRequest(request);
@@ -67,6 +65,8 @@ public class AdminServlet extends HttpServlet {
 		}
 		List<Vehicle> allVehicles = adminService.getAllVehicles();
 		session.setAttribute("allVehicles", allVehicles);
+		
+		this.closeConnection();
 		response.sendRedirect(request.getContextPath() + "/admin.jsp");
 	}
 	
@@ -92,6 +92,20 @@ public class AdminServlet extends HttpServlet {
 		}
 		
 		return vehicle;
+	}
+	
+	private void initializeAdminService() {
+		this.connection = ServletUtils.connectToSqlDatabase();
+		VehicleDao vehicleDao = new SqlVehicleDao(connection);
+		ReservationDao reservationDao = new SqlReservationDao(connection);
+		
+		this.adminService = new DefaultAdminService(new DefaultVehicleService(vehicleDao), reservationDao);
+	}
+	
+	private void closeConnection() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {}
 	}
 
 }

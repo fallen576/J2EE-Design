@@ -2,6 +2,7 @@ package app.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import app.dao.user.SqlUserDao;
-import app.dao.user.UserDao;
 import app.model.User;
 import app.services.user.DefaultUserService;
 import app.services.user.UserService;
@@ -21,21 +21,13 @@ import app.utils.ServletUtils;
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private UserService userService;
-	private UserDao userDao;
-
-	public void init() throws ServletException {
-		Connection connection = ServletUtils.connectToSqlDatabase();
-		
-		userDao = new SqlUserDao(connection);
-		userService = new DefaultUserService(userDao);
-	}
-	
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String createAccount = (String) request.getParameter("createAccount");
+		
+		Connection connection = ServletUtils.connectToSqlDatabase();
+		UserService userService = new DefaultUserService(new SqlUserDao(connection));
 
 		// User is looking to create a new account
 		if (createAccount.equals("true")) {
@@ -66,7 +58,7 @@ public class AccountServlet extends HttpServlet {
 			String email = (String) request.getParameter("email");
 			String password = (String) request.getParameter("password");
 			
-			User user = userDao.checkLogin(email, password);
+			User user = userService.checkLogin(email, password);
 			session.setAttribute("user", user);
 						
 			if (user == null) {
@@ -88,10 +80,17 @@ public class AccountServlet extends HttpServlet {
 			User userUpdate = new User(firstName, lastName, email);
 			userUpdate.setId(Long.parseLong(request.getParameter("id")));
 			
-			userDao.update(userUpdate);
+			userService.update(userUpdate);
 			
+			this.closeConnection(connection);
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
+	}
+	
+	private void closeConnection(Connection connection) {
+		try {
+			connection.close();
+		} catch (SQLException e) {}
 	}
 }
 

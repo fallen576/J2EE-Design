@@ -2,6 +2,7 @@ package app.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,6 +25,8 @@ import app.model.Vehicle;
 import app.model.VehicleCategory;
 import app.services.reservation.DefaultReservationService;
 import app.services.reservation.ReservationService;
+import app.services.vehicle.DefaultVehicleService;
+import app.services.vehicle.VehicleService;
 import app.utils.ServletUtils;
 
 @WebServlet("/confirm")
@@ -31,23 +34,14 @@ public class ConfirmReservationServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private ReservationDao reservationDao;
-	private UserReservationDao userReservationDao;
-	private VehicleDao vehicleDao;
+	private Connection connection;
 	
+	private VehicleService vehicleService;
 	private ReservationService reservationService;
 	
-	public void init() throws ServletException {
-		Connection connection = ServletUtils.connectToSqlDatabase();
-		
-		reservationDao = new SqlReservationDao(connection);
-		userReservationDao = new SqlUserReservationDao(connection);
-		vehicleDao = new SqlVehicleDao(connection);
-		
-		reservationService = new DefaultReservationService(reservationDao, userReservationDao, vehicleDao);		
-	}
-	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.initializeServices();
+		
 		HttpSession session = request.getSession(); 
 		Object userObject = session.getAttribute("user");
 		String modify = (String) request.getParameter("modify");
@@ -74,7 +68,7 @@ public class ConfirmReservationServlet extends HttpServlet {
 			
 			String id = request.getParameter("carToSelect");
 			
-			Vehicle vehicle = vehicleDao.findById(id).get(0);
+			Vehicle vehicle = this.vehicleService.findByIds(id).get(0);
 			
 			VehicleCategory vehicleCategory;
 			Date pickupDate; 
@@ -100,8 +94,27 @@ public class ConfirmReservationServlet extends HttpServlet {
 				e.printStackTrace();
 				session.setAttribute("errorMessage", e.getMessage());
 				response.sendRedirect(request.getContextPath() + "/error.jsp");
+			} finally {
+				this.closeConnection();
 			}
 		}
+	}
+	
+	private void initializeServices() {
+		this.connection = ServletUtils.connectToSqlDatabase();
+		
+		ReservationDao reservationDao = new SqlReservationDao(connection);
+		UserReservationDao userReservationDao = new SqlUserReservationDao(connection);
+		VehicleDao vehicleDao = new SqlVehicleDao(connection);
+		
+		this.vehicleService = new DefaultVehicleService(vehicleDao);
+		this.reservationService = new DefaultReservationService(reservationDao, userReservationDao, vehicleDao);
+	}
+	
+	private void closeConnection() {
+		try {
+			this.connection.close();
+		} catch (SQLException e) {}
 	}
 
 }

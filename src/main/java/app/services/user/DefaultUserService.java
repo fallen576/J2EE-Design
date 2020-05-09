@@ -26,4 +26,9 @@ public class DefaultUserService implements UserService {
 		userDao.update(user);
 	}
 
+	@Override
+	public User checkLogin(String email, String password) {
+		return userDao.checkLogin(email, password);
+	}
+
 }
