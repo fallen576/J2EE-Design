@@ -89,6 +89,7 @@ public class ConfirmReservationServlet extends HttpServlet {
 			try {
 				Reservation confirmedReservation = reservationService.confirmReservation(user, reservation, vehicle, vehicleCategory);
 				session.setAttribute("reservation", confirmedReservation);
+				session.setAttribute("reservations", reservationService.findUserReservations(user));
 				response.sendRedirect(request.getContextPath() + "/reservation.jsp");
 			} catch (Exception e) {
 				e.printStackTrace();
