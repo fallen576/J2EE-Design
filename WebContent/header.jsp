@@ -9,12 +9,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="/J2EE-Design/styles/main.css" type="text/css">
 <!DOCTYPE html>
 <html>
 
 <head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="/J2EE-Design/styles/main.css" type="text/css">
+	
+	<script src="/J2EE-Design/js/jquery-3.5.1.min.js"></script>
+	<script src="/J2EE-Design/js/bootstrap.min.js"></script>
+    
     <meta charset="ISO-8859-1">
     <title>Deals On Wheels</title>
 </head>

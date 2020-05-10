@@ -13,8 +13,19 @@
 		if (fileInput.value !== "") {
 			var reader = new FileReader();
 			reader.onload = function(event) {
-			    var base64String = reader.result;
-			    document.getElementById('base64Img').value = base64String;
+			    var base64String = reader.result.split(',')[1];
+			    document.getElementById('image-hidden-' + id).value = base64String;
+			};
+			reader.readAsDataURL(fileInput.files[0]);
+		}		
+	}
+	function encodeNewVehicleImage() {
+		var fileInput = document.getElementById('new-vehicle-img');
+		if (fileInput.value !== "") {
+			var reader = new FileReader();
+			reader.onload = function(event) {
+			    var base64String = reader.result.split(',')[1];
+			    document.getElementById('new-vehicle-img-hidden').value = base64String;
 			};
 			reader.readAsDataURL(fileInput.files[0]);
 		}		
@@ -23,6 +34,9 @@
 <jsp:include page="header.jsp" />
 	<div class="admin row border-secondary rounded bg-light">
 		<div class="container">
+			 <div class="new-vehicle-btn">
+			 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#newVehicleModal">Create Vehicle</button>
+			 </div>
 		     <div class="vehicles">
      			<%
      			if (vehicles != null) {
@@ -39,9 +53,9 @@
 				           <div class="header-img">
 					       	   <div class="header">
 				       	   		 	<span>
-						             	<form action="/admin" method="POST">
+						             	<form action="admin" method="POST">
 						             		<input type="hidden" name="method" value="DELETE" />
-						             		<input type="hidden" name="vehicleDeleteId" value="${id}">
+						             		<input type="hidden" name="vehicleDeleteId" value="<%= id %>">
 						             		<input type="submit" value="Delete" class="btn btn-sm btn-danger"> 
 						             	</form>
 						            </span>
@@ -91,7 +105,7 @@
 					    				<div class="row">
 					    					<label for="image">Image:</label>
 					      					<input type="file" class="form-control" id="image-<%= id %>" onchange="encodeBase64Image(id)">
-					      					<input type="hidden" name="base64Img" value="<%= base64Img %>" />
+					      					<input type="hidden" name="base64Img" id="image-hidden-<%= id %>" value="<%= base64Img %>" />
 					    				</div>
 							       		<div class="row save-btn">
 							       			<label></label>
@@ -107,6 +121,66 @@
      			%>
      		</div>
  		  </div>
+	  	<div id="newVehicleModal" class="modal fade" role="dialog" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Create Vehicle</h4>
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+		      <div class="modal-body">
+		        <form action="admin" method="POST">
+		       		<div>
+		       			<div class="table">
+						 	<div class="row">
+		      					<label for="make">Make:</label>
+		      					<input type="text" class="form-control" name="make" required>
+		    				</div>
+						 	<div class="row">
+		      					<label for="model">Model:</label>
+		      					<input type="text" class="form-control" name="model" required>
+		    				</div>
+		    				<div class="row">
+		    					<label for="costPerDay">Cost Per Day:</label>
+		    					<input type="number" class="form-control" name="costPerDay" step="0.01"
+		    						min="0" max="999.99" required />
+		    				</div>
+			       			<div class="row">
+			       				<label for="category">Category:</label>
+			       				<select class="form-control" name="category">
+			       					<option value="ECONOMY" selected>Economy</option>
+			       					<option value="COMPACT">Compact</option>
+			       					<option value="INTERMEDIATE">Intermediate</option>
+			       					<option value="STANDARD">Standard</option>
+			       					<option value="FULL_SIZE">Full Size</option>
+			       					<option value="PREMIUM">Premium</option>
+			       					<option value="LUXURY">Luxury</option>
+			       				</select>
+			       			</div>
+			       			<div class="row">
+		      					<label for="color">Color:</label>
+		      					<input type="text" class="form-control" name="color" required>
+		    				</div>
+		    				<div class="row">
+		    					<label for="image">Image:</label>
+		      					<input type="file" class="form-control" id="new-vehicle-img" onchange="encodeNewVehicleImage()">
+		      					<input type="hidden" name="base64Img" id="new-vehicle-img-hidden" />
+		    				</div>
+				       		<div class="row save-btn">
+				       			<button class="btn btn-success btn-sm rounded">Create Vehicle</button>
+				       		</div>
+			       		</div>
+		       		</div>
+				 </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
 	  </div>
 	</body>
 </html>

@@ -97,3 +97,17 @@ body {
 .admin .vehicle .row.save-btn {
 	text-align: right;
 }
+body .modal-backdrop.fade.in {
+	opacity: 0.5;
+}
+.admin .modal.fade.in {
+	opacity: 1;
+}
+.admin .modal-body {
+	overflow-y: auto;
+    max-height: 300px;
+    padding: 30px 30px 0 30px;
+}
+.admin .modal-body .save-btn {
+	margin-top: 10px;
+}

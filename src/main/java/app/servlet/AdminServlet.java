@@ -52,15 +52,16 @@ public class AdminServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String method = request.getParameter("method");
-		Vehicle vehicle = this.getVehicleFromRequest(request);
 		if (StringUtils.isNotEmpty(method)) {
 			if (method.equalsIgnoreCase("PUT")) {
+				Vehicle vehicle = this.getVehicleFromRequest(request);
 				adminService.updateVehicle(vehicle);
 			} else if (method.equalsIgnoreCase("DELETE")) {
-				String deleteId = (String) session.getAttribute("vehicleDeleteId");
+				String deleteId = request.getParameter("vehicleDeleteId");				
 				adminService.deleteVehicle(Long.parseLong(deleteId));
 			}
 		} else {
+			Vehicle vehicle = this.getVehicleFromRequest(request);
 			vehicle = adminService.insertVehicle(vehicle);
 		}
 		List<Vehicle> allVehicles = adminService.getAllVehicles();
