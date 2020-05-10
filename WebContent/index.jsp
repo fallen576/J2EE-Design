@@ -66,10 +66,12 @@
 		    		</div>
 				</div>
 			</form>
+			<!-- 
 			<p class="lead padT">Feel free to check out our frequently asked questions over at our Contact Us page.</p>
 			<p class="lead">
 				<a class="btn btn-warning rounded btn-med" href="" role="button">Learn more</a>
 			</p>
+			 -->
 		</div>
 	</div>
 </body>

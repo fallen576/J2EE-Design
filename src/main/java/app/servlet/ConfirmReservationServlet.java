@@ -99,6 +99,9 @@ public class ConfirmReservationServlet extends HttpServlet {
 				this.closeConnection();
 			}
 		}
+		else {
+			response.sendRedirect(request.getContextPath() + "/createAccount.jsp");
+		}
 	}
 	
 	private void initializeServices() {
