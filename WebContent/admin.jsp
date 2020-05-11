@@ -8,20 +8,28 @@
 	List<Vehicle> vehicles = (List<Vehicle>) session.getAttribute("allVehicles");
 %>
 <script type="text/javascript">
-	function encodeBase64Image(id) {
-		var fileInput = document.getElementById('image-' + id);
-		if (fileInput.value !== "") {
+	function encodeBase64Image(vehicleId) {
+		var fileInput = document.getElementById('image-' + vehicleId);
+		var value = fileInput.value;
+		if (!isAcceptedFileExtension(value)) {
+			document.getElementById('image-' + vehicleId).value = null;
+			alert('Only jpg, jpeg, or png file types permited');
+		} else if (value !== "") {
 			var reader = new FileReader();
 			reader.onload = function(event) {
 			    var base64String = reader.result.split(',')[1];
-			    document.getElementById('image-hidden-' + id).value = base64String;
+			    document.getElementById('image-hidden-' + vehicleId).value = base64String;
 			};
 			reader.readAsDataURL(fileInput.files[0]);
 		}		
 	}
 	function encodeNewVehicleImage() {
 		var fileInput = document.getElementById('new-vehicle-img');
-		if (fileInput.value !== "") {
+		var value = fileInput.value;
+		if (!isAcceptedFileExtension(value)) {
+			document.getElementById('new-vehicle-img').value = null;
+			alert('Only jpg, jpeg, or png file types permited');
+		} else if (value !== "") {
 			var reader = new FileReader();
 			reader.onload = function(event) {
 			    var base64String = reader.result.split(',')[1];
@@ -29,6 +37,10 @@
 			};
 			reader.readAsDataURL(fileInput.files[0]);
 		}		
+	}
+	function isAcceptedFileExtension(value) {
+		var extension = value.match(/\.([^\.]+)$/)[1];
+		return extension === 'jpg' || extension === 'jpeg' || extension === 'png';
 	}
 </script>
 <jsp:include page="header.jsp" />
@@ -47,7 +59,7 @@
      					String model = v.getModel();
      					String color = v.getColor();
      					VehicleCategory category = v.getCategory();
-     					long id = v.getId();
+     					long vehicleId = v.getId();
      					%>
 				        <div class="vehicle">
 				           <div class="header-img">
@@ -55,7 +67,7 @@
 				       	   		 	<span>
 						             	<form action="admin" method="POST">
 						             		<input type="hidden" name="method" value="DELETE" />
-						             		<input type="hidden" name="vehicleDeleteId" value="<%= id %>">
+						             		<input type="hidden" name="vehicleDeleteId" value="<%= vehicleId %>">
 						             		<input type="submit" value="Delete" class="btn btn-sm btn-danger"> 
 						             	</form>
 						            </span>
@@ -67,9 +79,9 @@
 					       			<div class="table">
 						       			<div class="row">
 					       					<input type="hidden" name="method" value="PUT" />
-					       					<input type="hidden" name="id" value="<%= id %>" />
+					       					<input type="hidden" name="id" value="<%= vehicleId %>" />
 							       			<label for="id">Id:</label>
-					      					<input type="text" class="form-control" name="id" value="<%= id %>" required disabled>
+					      					<input type="text" class="form-control" name="id" value="<%= vehicleId %>" required disabled>
 							       		</div>
 									 	<div class="row">
 					      					<label for="make">Make:</label>
@@ -103,9 +115,9 @@
 					      					<input type="text" class="form-control" name="color" value="<%= color %>" required>
 					    				</div>
 					    				<div class="row">
-					    					<label for="image">Image:</label>
-					      					<input type="file" class="form-control" id="image-<%= id %>" onchange="encodeBase64Image(id)">
-					      					<input type="hidden" name="base64Img" id="image-hidden-<%= id %>" value="<%= base64Img %>" />
+					    					<label for="image">Image (png, jpeg, jpg):</label>
+					      					<input type="file" accept="jpg, jpeg, png" class="form-control" id="image-<%= vehicleId %>" onchange="encodeBase64Image(<%= vehicleId %>)">
+					      					<input type="hidden" name="base64Img" id="image-hidden-<%= vehicleId %>" value="<%= base64Img %>" />
 					    				</div>
 							       		<div class="row save-btn">
 							       			<label></label>

@@ -3,7 +3,8 @@
 <%
 	//get session variables here
 	User user = (User) session.getAttribute("user");
-	boolean isAdmin = user != null && user.isAdmin();
+	boolean isLoggedIn = user != null;
+	boolean isAdmin = isLoggedIn && user.isAdmin();
 %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -30,15 +31,19 @@
 				<li class="nav-item">
 					<a class="nav-link text-dark  rounded" href="/J2EE-Design/index.jsp">Home</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link text-dark  rounded" href="/J2EE-Design/profile.jsp">Profile</a>
-				</li>
-				<li class="nav-item"> 
-					<form action="reservation" method="Get">
-						<input type="hidden" name="reservations" value="true"/> 
-						<a type="submit" class="nav-link text-dark  rounded"  href="/J2EE-Design/reservation">My Rentals</a> 
-					</form>
-				</li>
+				<% if (isLoggedIn) {%>
+					<li class="nav-item">
+						<a class="nav-link text-dark  rounded" href="/J2EE-Design/profile.jsp">Profile</a>
+					</li>
+				<%}%>
+				<% if (isLoggedIn) {%>
+					<li class="nav-item"> 
+						<form action="reservation" method="Get">
+							<input type="hidden" name="reservations" value="true"/> 
+							<a type="submit" class="nav-link text-dark  rounded"  href="/J2EE-Design/reservation">My Rentals</a> 
+						</form>
+					</li>
+				<%}%>
 				<% if (isAdmin) {%>
 					<li class="nav-item">
 						<a class="nav-link text-dark  rounded" href="/J2EE-Design/admin">Admin</a>
